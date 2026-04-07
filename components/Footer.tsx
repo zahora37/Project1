@@ -71,7 +71,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-10 pt-6 border-t border-gray-800 flex flex-col sm:flex-row items-center justify-between gap-4 text-sm text-gray-500">
-          <p>© {new Date().getFullYear()} Green Horizon Landscaping. All rights reserved.</p>
+          <p suppressHydrationWarning>© {new Date().getFullYear()} Green Horizon Landscaping. All rights reserved.</p>
           <p>Built with love for beautiful yards 🌿</p>
         </div>
       </div>
