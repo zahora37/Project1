@@ -69,10 +69,12 @@ export async function POST(req: NextRequest) {
     const text = response.content[0].type === 'text' ? response.content[0].text : ''
 
     return NextResponse.json({ message: text })
-  } catch (error) {
-    console.error('Chat API error:', error)
+  } catch (error: unknown) {
+    const msg = error instanceof Error ? error.message : String(error)
+    console.error('Chat API error:', msg)
+    // Return the real error in dev so we can see what's wrong
     return NextResponse.json(
-      { error: 'Sorry, I ran into an issue. Please try again or call us at (555) 123-4567.' },
+      { error: `AI error: ${msg}` },
       { status: 500 }
     )
   }
