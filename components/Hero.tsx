@@ -5,31 +5,30 @@ export default function Hero() {
     <section
       id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
-      style={{
-        background: 'linear-gradient(135deg, #14532d 0%, #166534 40%, #15803d 70%, #16a34a 100%)',
-      }}
     >
-      {/* Decorative leaf pattern overlay */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute top-10 left-10 text-9xl">🌿</div>
-        <div className="absolute top-20 right-20 text-7xl">🍃</div>
-        <div className="absolute bottom-20 left-20 text-8xl">🌱</div>
-        <div className="absolute bottom-10 right-10 text-9xl">🌿</div>
-      </div>
+      {/* Real grass / field background photo */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: `url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&q=80')`,
+        }}
+      />
+      {/* Dark overlay so text stays readable over the photo */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
 
       {/* Content */}
       <div className="relative z-10 text-center px-4 max-w-4xl mx-auto pt-16">
-        <div className="inline-flex items-center gap-2 bg-green-500/30 border border-green-400/40 rounded-full px-4 py-1.5 text-green-100 text-sm font-medium mb-6">
+        <div className="inline-flex items-center gap-2 bg-white/20 border border-white/30 rounded-full px-4 py-1.5 text-white text-sm font-medium mb-6">
           <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
           Serving your local area
         </div>
 
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
           Your Dream Yard,<br />
-          <span className="text-green-300">Expertly Crafted</span>
+          <span className="text-green-400">Expertly Crafted</span>
         </h1>
 
-        <p className="text-lg sm:text-xl text-green-100 mb-10 max-w-2xl mx-auto leading-relaxed">
+        <p className="text-lg sm:text-xl text-white/85 mb-10 max-w-2xl mx-auto leading-relaxed">
           From lush lawns to stunning landscape designs — Green Horizon Landscaping brings beauty and value to your outdoor space. Free estimates, no obligation.
         </p>
 
@@ -55,27 +54,27 @@ export default function Hero() {
         </div>
 
         {/* Trust badges */}
-        <div className="mt-14 flex flex-wrap justify-center gap-8 text-green-100">
+        <div className="mt-14 flex flex-wrap justify-center gap-8 text-white/80">
           <div className="flex items-center gap-2">
-            <svg className="w-5 h-5 text-green-300" fill="currentColor" viewBox="0 0 20 20">
+            <svg className="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
             </svg>
             <span className="text-sm font-medium">Licensed & Insured</span>
           </div>
           <div className="flex items-center gap-2">
-            <svg className="w-5 h-5 text-green-300" fill="currentColor" viewBox="0 0 20 20">
+            <svg className="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
             </svg>
             <span className="text-sm font-medium">Free Estimates</span>
           </div>
           <div className="flex items-center gap-2">
-            <svg className="w-5 h-5 text-green-300" fill="currentColor" viewBox="0 0 20 20">
+            <svg className="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
             </svg>
             <span className="text-sm font-medium">Satisfaction Guaranteed</span>
           </div>
           <div className="flex items-center gap-2">
-            <svg className="w-5 h-5 text-green-300" fill="currentColor" viewBox="0 0 20 20">
+            <svg className="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
             </svg>
             <span className="text-sm font-medium">10+ Years Experience</span>
