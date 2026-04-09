@@ -6,14 +6,23 @@ export default function Hero() {
       id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Real grass / field background photo */}
-      <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-        style={{
-          backgroundImage: `url('https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=1920&q=80')`,
-        }}
-      />
-      {/* Dark overlay so text stays readable over the photo */}
+      {/* Background video */}
+      <video
+        autoPlay
+        loop
+        muted
+        playsInline
+        className="absolute inset-0 w-full h-full object-cover"
+      >
+        <source src="/videos/hero.mp4" type="video/mp4" />
+        {/* Fallback photo if video fails to load */}
+        <img
+          src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=1920&q=80"
+          alt="Landscaping background"
+          className="w-full h-full object-cover"
+        />
+      </video>
+      {/* Dark overlay so text stays readable over the video */}
       <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
 
       {/* Content */}
