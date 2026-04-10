@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Order — The Weekend Loaf</title>
+  <meta name="description" content="Order fresh sourdough bread for Saturday pickup or local delivery. Order by Thursday evening.">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+  <!-- Cutoff Banner -->
+  <div class="cutoff-banner" id="cutoff-banner">
+    <strong>Order cutoff:</strong> Thursday at 8:00 PM &nbsp;·&nbsp; Baked fresh every Saturday morning
+  </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container">
+      <nav class="nav-inner">
+        <a href="/" class="nav-logo">
+          The Weekend Loaf
+          <span>Small-batch sourdough</span>
+        </a>
+        <ul class="nav-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/menu.html">Menu</a></li>
+          <li><a href="/order.html" class="active">Order</a></li>
+          <li><a href="/contact.html">Contact</a></li>
+          <li><a href="/order.html" class="btn-nav">Order Now</a></li>
+        </ul>
+        <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Page Hero -->
+  <div class="page-hero">
+    <div class="container page-hero-content">
+      <h1>Place Your Order</h1>
+      <p>Order by Thursday at 8 PM for Saturday pickup or delivery. You'll receive an email confirmation immediately.</p>
+    </div>
+  </div>
+
+  <!-- Order Section -->
+  <section class="section">
+    <div class="container">
+      <div class="order-layout">
+
+        <!-- Form -->
+        <div>
+          <form id="order-form" novalidate>
+
+            <!-- Contact Info -->
+            <p class="form-section-title">
+              <span style="width:24px;height:24px;background:var(--red);color:white;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:0.75rem;font-family:var(--font-sans);">1</span>
+              Your details
+            </p>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="name">Full Name *</label>
+                <input type="text" id="name" name="name" placeholder="Jane Smith" required autocomplete="name">
+              </div>
+              <div class="form-group">
+                <label for="phone">Phone Number *</label>
+                <input type="tel" id="phone" name="phone" placeholder="(503) 555-0100" required autocomplete="tel">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address *</label>
+              <input type="email" id="email" name="email" placeholder="jane@example.com" required autocomplete="email">
+            </div>
+
+            <!-- Order Items -->
+            <p class="form-section-title">
+              <span style="width:24px;height:24px;background:var(--red);color:white;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:0.75rem;font-family:var(--font-sans);">2</span>
+              Your order
+            </p>
+
+            <div class="form-group">
+              <label>Items *</label>
+              <div id="order-items" class="order-items-list">
+                <!-- Populated by order.js -->
+              </div>
+              <button type="button" class="add-item-btn" id="add-item-btn">+ Add another item</button>
+            </div>
+
+            <!-- Date -->
+            <p class="form-section-title">
+              <span style="width:24px;height:24px;background:var(--red);color:white;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:0.75rem;font-family:var(--font-sans);">3</span>
+              Pickup / delivery date
+            </p>
+
+            <div class="form-group">
+              <label for="preferred-date">Preferred Saturday *</label>
+              <select id="preferred-date" name="preferred-date" required>
+                <!-- Populated by order.js -->
+              </select>
+            </div>
+
+            <!-- Fulfillment -->
+            <p class="form-section-title">
+              <span style="width:24px;height:24px;background:var(--red);color:white;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:0.75rem;font-family:var(--font-sans);">4</span>
+              How would you like to receive it?
+            </p>
+
+            <div class="form-group">
+              <div class="fulfillment-toggle">
+                <div class="fulfillment-option">
+                  <input type="radio" name="fulfillment" id="fulfillment-pickup" value="pickup" checked>
+                  <label for="fulfillment-pickup">
+                    <span class="icon">🏡</span>
+                    Pickup
+                    <span style="font-size:0.72rem;opacity:0.7;font-weight:400;text-transform:none;letter-spacing:0;">Ready from 9 AM Sat</span>
+                  </label>
+                </div>
+                <div class="fulfillment-option">
+                  <input type="radio" name="fulfillment" id="fulfillment-delivery" value="delivery">
+                  <label for="fulfillment-delivery">
+                    <span class="icon">🚗</span>
+                    Delivery
+                    <span style="font-size:0.72rem;opacity:0.7;font-weight:400;text-transform:none;letter-spacing:0;">Local Portland only</span>
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            <div id="delivery-fields" style="display:none;">
+              <div class="form-group">
+                <label for="delivery-address">Delivery Address *</label>
+                <input type="text" id="delivery-address" name="delivery-address" placeholder="123 Main St, Portland, OR 97201" autocomplete="street-address">
+              </div>
+            </div>
+
+            <!-- Notes -->
+            <p class="form-section-title">
+              <span style="width:24px;height:24px;background:var(--beige-dark);color:var(--brown-dark);border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:0.75rem;font-family:var(--font-sans);">5</span>
+              Notes <span style="font-size:0.8rem;color:var(--brown);font-weight:400;font-family:var(--font-sans);text-transform:none;letter-spacing:0;">(optional)</span>
+            </p>
+
+            <div class="form-group">
+              <textarea id="notes" name="notes" placeholder="Allergies, special requests, or anything else we should know…"></textarea>
+            </div>
+
+            <!-- Feedback -->
+            <div class="form-feedback" id="form-feedback"></div>
+
+            <div style="margin-top:24px;">
+              <button type="submit" class="btn btn-primary btn-lg" id="submit-btn" style="width:100%;">
+                Place Order
+              </button>
+              <p style="font-size:0.8rem;color:var(--brown);text-align:center;margin-top:12px;">
+                You'll receive a confirmation email immediately. No payment upfront — pay at pickup or delivery.
+              </p>
+            </div>
+
+          </form>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="order-sidebar">
+          <div class="order-summary-card">
+            <h3>Order Summary</h3>
+
+            <div class="availability-status" id="availability-status">
+              <span class="status-dot"></span> Checking availability…
+            </div>
+
+            <div id="summary-lines">
+              <p style="color:var(--brown);font-size:0.87rem;">No items selected yet.</p>
+            </div>
+
+            <div class="summary-total">
+              <span>Total</span>
+              <span class="amount" id="summary-total">$0.00</span>
+            </div>
+          </div>
+
+          <div style="margin-top:20px;background:var(--beige);border-radius:var(--radius);padding:20px;">
+            <h4 style="font-family:var(--font-serif);font-size:1rem;margin-bottom:10px;">Pickup info</h4>
+            <p style="font-size:0.85rem;color:var(--brown-dark);line-height:1.6;">
+              Pickup is from our home in <strong>NE Portland</strong>. The exact address is shared in your order confirmation email.<br><br>
+              Ready from <strong>9:00 AM Saturday</strong>. Please collect by noon.
+            </p>
+          </div>
+
+          <div style="margin-top:16px;background:var(--beige);border-radius:var(--radius);padding:20px;">
+            <h4 style="font-family:var(--font-serif);font-size:1rem;margin-bottom:10px;">Payment</h4>
+            <p style="font-size:0.85rem;color:var(--brown-dark);line-height:1.6;">
+              We accept cash, Venmo, or Zelle at pickup/delivery. No payment required to place your order.
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Success Modal -->
+  <div class="modal-overlay" id="success-modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-box">
+      <div class="modal-icon">🎉</div>
+      <h2 id="modal-title">Order placed!</h2>
+      <p>Thank you! Your order is confirmed and we're so excited to bake for you.</p>
+      <p>A confirmation email is on its way to your inbox.</p>
+      <div class="modal-ref">
+        Reference: <span id="modal-ref">—</span><br>
+        Date: <span id="modal-date">—</span><br>
+        Total: <span id="modal-total">—</span>
+      </div>
+      <div style="margin-top:24px;display:flex;flex-direction:column;gap:10px;">
+        <button class="btn btn-primary" onclick="document.getElementById('success-modal').classList.remove('open')">Back to Order Form</button>
+        <a href="/" class="btn btn-outline">Return Home</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="nav-logo">
+            The Weekend Loaf
+            <span>Small-batch sourdough</span>
+          </div>
+          <p>Handcrafted sourdough, baked with love every Saturday morning in Portland, OR.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Pages</h4>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/menu.html">Menu</a></li>
+            <li><a href="/order.html">Place an Order</a></li>
+            <li><a href="/contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Questions?</h4>
+          <ul>
+            <li><a href="mailto:hello@theweekendloaf.com">hello@theweekendloaf.com</a></li>
+            <li><a href="/contact.html">Contact us</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 The Weekend Loaf. Made with flour, water, salt &amp; time.</span>
+        <span>Baked every Saturday morning</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/main.js"></script>
+  <script src="/js/order.js"></script>
+</body>
+</html>

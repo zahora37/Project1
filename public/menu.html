@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Menu — The Weekend Loaf</title>
+  <meta name="description" content="Browse our small-batch sourdough menu. Classic country loaves, seeded rye, rosemary focaccia, and more.">
+  <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+  <!-- Cutoff Banner -->
+  <div class="cutoff-banner" id="cutoff-banner">
+    <strong>Order cutoff:</strong> Thursday at 8:00 PM &nbsp;·&nbsp; Baked fresh every Saturday morning
+  </div>
+
+  <!-- Header -->
+  <header class="site-header">
+    <div class="container">
+      <nav class="nav-inner">
+        <a href="/" class="nav-logo">
+          The Weekend Loaf
+          <span>Small-batch sourdough</span>
+        </a>
+        <ul class="nav-links">
+          <li><a href="/">Home</a></li>
+          <li><a href="/menu.html" class="active">Menu</a></li>
+          <li><a href="/order.html">Order</a></li>
+          <li><a href="/contact.html">Contact</a></li>
+          <li><a href="/order.html" class="btn-nav">Order Now</a></li>
+        </ul>
+        <button class="nav-toggle" aria-label="Open menu" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Page Hero -->
+  <div class="page-hero">
+    <div class="container page-hero-content">
+      <h1>Our Menu</h1>
+      <p>Small-batch breads made with wild starter, local grain, and a lot of patience. Limited quantities each weekend.</p>
+    </div>
+  </div>
+
+  <!-- Menu Grid -->
+  <section class="section">
+    <div class="container">
+
+      <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:40px;">
+        <div>
+          <h2 class="section-title">All breads</h2>
+          <p class="section-subtitle" style="margin-bottom:0;">Order by Thursday evening for Saturday pickup or delivery.</p>
+        </div>
+        <a href="/order.html" class="btn btn-primary">Place an Order</a>
+      </div>
+
+      <!-- Populated by main.js -->
+      <div class="menu-grid" id="menu-grid">
+        <!-- Loading state -->
+        <div style="grid-column:1/-1;text-align:center;padding:48px;color:var(--brown);">
+          <div class="spinner" style="border-color:rgba(139,38,53,0.2);border-top-color:var(--red);width:32px;height:32px;border-width:3px;"></div>
+          <p style="margin-top:16px;">Loading menu…</p>
+        </div>
+      </div>
+
+      <!-- About ingredients -->
+      <div style="margin-top:72px;background:var(--beige);border-radius:var(--radius-lg);padding:40px;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center;">
+        <div>
+          <h3 style="font-family:var(--font-serif);font-size:1.5rem;margin-bottom:12px;">Ingredients you can trust</h3>
+          <div class="divider"></div>
+          <p style="color:var(--brown-dark);font-size:0.95rem;line-height:1.7;margin-bottom:12px;">
+            Every loaf uses just four things: flour, water, salt, and our wild sourdough culture. No commercial yeast, no additives, no shortcuts.
+          </p>
+          <p style="color:var(--brown-dark);font-size:0.95rem;line-height:1.7;">
+            We source our flour from <strong>Camas Country Mill</strong> and <strong>Shepherd's Grain</strong>, two Oregon farms committed to regenerative agriculture.
+          </p>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">
+          <div style="background:var(--white);border-radius:var(--radius);padding:20px;text-align:center;">
+            <div style="font-size:1.8rem;margin-bottom:8px;">🌾</div>
+            <strong style="font-size:0.85rem;color:var(--ink);">Stone-milled flour</strong>
+            <p style="font-size:0.78rem;color:var(--brown);margin-top:4px;">Local Oregon grain</p>
+          </div>
+          <div style="background:var(--white);border-radius:var(--radius);padding:20px;text-align:center;">
+            <div style="font-size:1.8rem;margin-bottom:8px;">💧</div>
+            <strong style="font-size:0.85rem;color:var(--ink);">Filtered water</strong>
+            <p style="font-size:0.78rem;color:var(--brown);margin-top:4px;">No chlorine</p>
+          </div>
+          <div style="background:var(--white);border-radius:var(--radius);padding:20px;text-align:center;">
+            <div style="font-size:1.8rem;margin-bottom:8px;">🧂</div>
+            <strong style="font-size:0.85rem;color:var(--ink);">Sea salt</strong>
+            <p style="font-size:0.78rem;color:var(--brown);margin-top:4px;">Jacobsen, Oregon</p>
+          </div>
+          <div style="background:var(--white);border-radius:var(--radius);padding:20px;text-align:center;">
+            <div style="font-size:1.8rem;margin-bottom:8px;">🦠</div>
+            <strong style="font-size:0.85rem;color:var(--ink);">Wild starter</strong>
+            <p style="font-size:0.78rem;color:var(--brown);margin-top:4px;">5 years &amp; growing</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section-sm" style="background:var(--red);">
+    <div class="container text-center">
+      <h2 style="color:var(--cream);margin-bottom:12px;">Ready to order?</h2>
+      <p style="color:rgba(240,232,216,0.8);margin-bottom:28px;">Order by Thursday evening to secure your Saturday loaves.</p>
+      <a href="/order.html" class="btn btn-cream btn-lg">Place Your Order</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="nav-logo">
+            The Weekend Loaf
+            <span>Small-batch sourdough</span>
+          </div>
+          <p>Handcrafted sourdough, baked with love every Saturday morning in Portland, OR.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Pages</h4>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/menu.html">Menu</a></li>
+            <li><a href="/order.html">Place an Order</a></li>
+            <li><a href="/contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h4>Info</h4>
+          <ul>
+            <li><a href="/contact.html">Portland, OR</a></li>
+            <li><a href="mailto:hello@theweekendloaf.com">hello@theweekendloaf.com</a></li>
+            <li><a href="#">Orders close Thursday 8 PM</a></li>
+            <li><a href="#">Pickup from 9 AM Saturday</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>&copy; 2026 The Weekend Loaf. Made with flour, water, salt &amp; time.</span>
+        <span>Baked every Saturday morning</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/js/main.js"></script>
+</body>
+</html>

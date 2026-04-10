@@ -1,0 +1,77 @@
+{
+  "businessName": "The Weekend Loaf",
+  "tagline": "Baked fresh every Saturday morning",
+  "businessEmail": "hello@theweekendloaf.com",
+  "ownerEmail": "owner@theweekendloaf.com",
+  "phone": "(555) 012-3456",
+  "location": "Portland, OR",
+  "instagramUrl": "https://instagram.com/theweekendloaf",
+  "orderCutoffDay": "Thursday",
+  "orderCutoffTime": "8:00 PM",
+  "maxOrdersPerWeekend": 20,
+  "menu": [
+    {
+      "id": "classic-country",
+      "name": "Classic Country Loaf",
+      "description": "Our signature open-crumb sourdough with a crackly crust and tangy, complex flavor. Made with stone-milled whole wheat.",
+      "price": 12,
+      "unit": "loaf",
+      "available": true,
+      "featured": true
+    },
+    {
+      "id": "seeded-rye",
+      "name": "Dark Seeded Rye",
+      "description": "A hearty, dense rye loaf loaded with caraway, sunflower, and pumpkin seeds. Perfect with cheese and charcuterie.",
+      "price": 14,
+      "unit": "loaf",
+      "available": true,
+      "featured": false
+    },
+    {
+      "id": "rosemary-olive",
+      "name": "Rosemary & Olive Oil",
+      "description": "Fragrant fresh rosemary folded through a rich, olive-oil dough. Pillowy inside, golden outside.",
+      "price": 14,
+      "unit": "loaf",
+      "available": true,
+      "featured": true
+    },
+    {
+      "id": "cinnamon-raisin",
+      "name": "Cinnamon Raisin",
+      "description": "A lightly sweetened sourdough swirled with cinnamon and plump California raisins. Beloved for weekend brunch.",
+      "price": 13,
+      "unit": "loaf",
+      "available": true,
+      "featured": false
+    },
+    {
+      "id": "focaccia",
+      "name": "Sourdough Focaccia",
+      "description": "Thick, pillowy focaccia dimpled with flaky sea salt and fresh herbs. Order by the quarter-sheet.",
+      "price": 10,
+      "unit": "sheet",
+      "available": true,
+      "featured": false
+    },
+    {
+      "id": "starter-kit",
+      "name": "Starter Kit",
+      "description": "A jar of our 5-year-old sourdough starter with printed care instructions and your first recipe card.",
+      "price": 15,
+      "unit": "kit",
+      "available": true,
+      "featured": false
+    }
+  ],
+  "weekends": {
+    "2026-04-12": {
+      "soldOut": false,
+      "ordersPlaced": 3,
+      "limit": 20,
+      "featuredItems": ["classic-country", "rosemary-olive", "focaccia"],
+      "specialNote": "Spring special: Wild garlic focaccia available this weekend only!"
+    }
+  }
+}
