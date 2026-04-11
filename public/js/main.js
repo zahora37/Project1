@@ -75,35 +75,78 @@ async function initWeekendBake() {
 }
 
 /* ── Menu page ────────────────────────────────── */
+
+// Real Unsplash photos mapped to each menu item ID
+const MENU_PHOTOS = {
+  'classic-country': {
+    src: 'https://source.unsplash.com/Sum7k8hC9iA/800x600',
+    alt: 'Close-up of a golden, freshly baked sourdough loaf with crackling crust',
+  },
+  'seeded-rye': {
+    src: 'https://source.unsplash.com/uGopmYwL7TI/800x600',
+    alt: 'Two dark rye sourdough loaves resting on a wooden cutting board',
+  },
+  'rosemary-olive': {
+    src: 'https://source.unsplash.com/dUtGp6goa7A/800x600',
+    alt: 'Rustic sourdough loaf with golden crust on a floured surface',
+  },
+  'cinnamon-raisin': {
+    src: 'https://source.unsplash.com/xa_wxSzlWWQ/800x600',
+    alt: 'Sliced sourdough loaf showing soft crumb texture next to the whole loaf',
+  },
+  'focaccia': {
+    src: 'https://source.unsplash.com/Hx7xdwhj2AY/800x600',
+    alt: 'Hands shaping dough on a floured wooden surface',
+  },
+  'starter-kit': {
+    src: 'https://source.unsplash.com/0Oh1bChh2ao/800x600',
+    alt: 'Close-up of freshly baked artisan bread with golden brown crust',
+  },
+};
+
+// Fallback gradient classes if photo fails to load
+const THUMB_FALLBACKS = ['bread-thumb-1','bread-thumb-2','bread-thumb-3','bread-thumb-4','bread-thumb-5','bread-thumb-6'];
+
 async function initMenuPage() {
   const grid = document.getElementById('menu-grid');
   if (!grid) return;
   const config = await loadConfig();
   if (!config) return;
 
-  const thumbClasses = ['bread-thumb-1','bread-thumb-2','bread-thumb-3','bread-thumb-4','bread-thumb-5','bread-thumb-6'];
-  grid.innerHTML = config.menu.map((item, i) => `
-    <div class="menu-card">
-      <div class="menu-card-img">
-        <div class="bread-thumb ${thumbClasses[i % thumbClasses.length]}"></div>
-        ${item.featured ? `<span class="featured-tag">Weekend Pick</span>` : ''}
-        ${!item.available ? `<div class="sold-out-overlay"><span class="sold-out-tag">Sold Out</span></div>` : ''}
-      </div>
-      <div class="menu-card-body">
-        <h3>${item.name}</h3>
-        <p>${item.description}</p>
-        <div class="menu-card-footer">
-          <div>
-            <div class="menu-price">$${item.price}</div>
-            <div class="menu-unit">per ${item.unit}</div>
-          </div>
-          ${item.available
-            ? `<a href="/order.html" class="btn btn-outline btn-sm">Order</a>`
-            : `<span class="sold-out-tag">Sold Out</span>`}
+  grid.innerHTML = config.menu.map((item, i) => {
+    const photo = MENU_PHOTOS[item.id];
+    const fallbackClass = THUMB_FALLBACKS[i % THUMB_FALLBACKS.length];
+    const imgTag = photo
+      ? `<img
+           src="${photo.src}"
+           alt="${photo.alt}"
+           class="bread-photo"
+           loading="lazy"
+           onerror="this.parentElement.classList.add('${fallbackClass}');this.remove();"
+         >`
+      : '';
+    return `
+      <div class="menu-card">
+        <div class="menu-card-img ${photo ? '' : fallbackClass}">
+          ${imgTag}
+          ${item.featured ? `<span class="featured-tag">Weekend Pick</span>` : ''}
+          ${!item.available ? `<div class="sold-out-overlay"><span class="sold-out-tag">Sold Out</span></div>` : ''}
         </div>
-      </div>
-    </div>
-  `).join('');
+        <div class="menu-card-body">
+          <h3>${item.name}</h3>
+          <p>${item.description}</p>
+          <div class="menu-card-footer">
+            <div>
+              <div class="menu-price">$${item.price}</div>
+              <div class="menu-unit">per ${item.unit}</div>
+            </div>
+            ${item.available
+              ? `<a href="/order.html" class="btn btn-outline btn-sm">Order</a>`
+              : `<span class="sold-out-tag">Sold Out</span>`}
+          </div>
+        </div>
+      </div>`;
+  }).join('');
 }
 
 /* ── Helpers ──────────────────────────────────── */
