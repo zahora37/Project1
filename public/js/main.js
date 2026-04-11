@@ -76,33 +76,14 @@ async function initWeekendBake() {
 
 /* ── Menu page ────────────────────────────────── */
 
-// Real Pexels photos mapped to each menu item ID
-// CDN format: images.pexels.com/photos/{id}/pexels-photo-{id}.jpeg
+// Local bread photos — downloaded once via: node download-images.js
 const MENU_PHOTOS = {
-  'classic-country': {
-    src: 'https://images.pexels.com/photos/7541727/pexels-photo-7541727.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1',
-    alt: 'Golden artisan sourdough loaf with crackling crust on a rustic surface',
-  },
-  'seeded-rye': {
-    src: 'https://images.pexels.com/photos/105861/pexels-photo-105861.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1',
-    alt: 'Rustic dark bread loaves in a basket with warm golden tones',
-  },
-  'rosemary-olive': {
-    src: 'https://images.pexels.com/photos/1079020/pexels-photo-1079020.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1',
-    alt: 'Sliced artisan sourdough bread showing open crumb texture',
-  },
-  'cinnamon-raisin': {
-    src: 'https://images.pexels.com/photos/1383908/pexels-photo-1383908.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1',
-    alt: 'Pile of freshly baked rustic bread loaves on a wooden surface',
-  },
-  'focaccia': {
-    src: 'https://images.pexels.com/photos/12335533/pexels-photo-12335533.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1',
-    alt: 'Fresh focaccia with sea salt, rosemary and olive oil',
-  },
-  'starter-kit': {
-    src: 'https://images.pexels.com/photos/209180/pexels-photo-209180.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1',
-    alt: 'Hands shaping homemade bread dough on a floured wooden board',
-  },
+  'classic-country': { src: '/images/menu-classic.jpg',  alt: 'Golden artisan sourdough loaf with crackling crust' },
+  'seeded-rye':      { src: '/images/menu-rye.jpg',      alt: 'Rustic dark bread loaves in a basket' },
+  'rosemary-olive':  { src: '/images/menu-rosemary.jpg', alt: 'Sliced artisan sourdough showing open crumb' },
+  'cinnamon-raisin': { src: '/images/menu-cinnamon.jpg', alt: 'Fresh baked cinnamon raisin loaf' },
+  'focaccia':        { src: '/images/menu-focaccia.jpg', alt: 'Fresh focaccia with sea salt and rosemary' },
+  'starter-kit':     { src: '/images/menu-starter.jpg',  alt: 'Hands shaping bread dough on a floured board' },
 };
 
 // Fallback gradient classes if photo fails to load
