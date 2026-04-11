@@ -76,31 +76,32 @@ async function initWeekendBake() {
 
 /* ── Menu page ────────────────────────────────── */
 
-// Real Unsplash photos mapped to each menu item ID
+// Real Pexels photos mapped to each menu item ID
+// CDN format: images.pexels.com/photos/{id}/pexels-photo-{id}.jpeg
 const MENU_PHOTOS = {
   'classic-country': {
-    src: 'https://source.unsplash.com/Sum7k8hC9iA/800x600',
-    alt: 'Close-up of a golden, freshly baked sourdough loaf with crackling crust',
+    src: 'https://images.pexels.com/photos/7541727/pexels-photo-7541727.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1',
+    alt: 'Golden artisan sourdough loaf with crackling crust on a rustic surface',
   },
   'seeded-rye': {
-    src: 'https://source.unsplash.com/uGopmYwL7TI/800x600',
-    alt: 'Two dark rye sourdough loaves resting on a wooden cutting board',
+    src: 'https://images.pexels.com/photos/105861/pexels-photo-105861.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1',
+    alt: 'Rustic dark bread loaves in a basket with warm golden tones',
   },
   'rosemary-olive': {
-    src: 'https://source.unsplash.com/dUtGp6goa7A/800x600',
-    alt: 'Rustic sourdough loaf with golden crust on a floured surface',
+    src: 'https://images.pexels.com/photos/1079020/pexels-photo-1079020.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1',
+    alt: 'Sliced artisan sourdough bread showing open crumb texture',
   },
   'cinnamon-raisin': {
-    src: 'https://source.unsplash.com/xa_wxSzlWWQ/800x600',
-    alt: 'Sliced sourdough loaf showing soft crumb texture next to the whole loaf',
+    src: 'https://images.pexels.com/photos/1383908/pexels-photo-1383908.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1',
+    alt: 'Pile of freshly baked rustic bread loaves on a wooden surface',
   },
   'focaccia': {
-    src: 'https://source.unsplash.com/Hx7xdwhj2AY/800x600',
-    alt: 'Hands shaping dough on a floured wooden surface',
+    src: 'https://images.pexels.com/photos/12335533/pexels-photo-12335533.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1',
+    alt: 'Fresh focaccia with sea salt, rosemary and olive oil',
   },
   'starter-kit': {
-    src: 'https://source.unsplash.com/0Oh1bChh2ao/800x600',
-    alt: 'Close-up of freshly baked artisan bread with golden brown crust',
+    src: 'https://images.pexels.com/photos/209180/pexels-photo-209180.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1',
+    alt: 'Hands shaping homemade bread dough on a floured wooden board',
   },
 };
 
