@@ -3,10 +3,79 @@ const express = require('express');
 const nodemailer = require('nodemailer');
 const fs = require('fs');
 const path = require('path');
+const https = require('https');
+const http = require('http');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 const CONFIG_FILE = path.join(__dirname, 'config.json');
+const IMAGES_DIR = path.join(__dirname, 'public', 'images');
+
+// Ensure images directory exists
+if (!fs.existsSync(IMAGES_DIR)) fs.mkdirSync(IMAGES_DIR, { recursive: true });
+
+// ─── Image sources (Pexels free license) ──────────────────────────────────
+const IMAGE_SOURCES = {
+  'hero-kitchen.jpg':  'https://images.pexels.com/photos/6996205/pexels-photo-6996205.jpeg?auto=compress&cs=tinysrgb&w=1920&h=900&dpr=1',
+  'story-loaves.jpg':  'https://images.pexels.com/photos/1383908/pexels-photo-1383908.jpeg?auto=compress&cs=tinysrgb&w=900&h=1100&dpr=1',
+  'menu-classic.jpg':  'https://images.pexels.com/photos/7541727/pexels-photo-7541727.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1',
+  'menu-rye.jpg':      'https://images.pexels.com/photos/105861/pexels-photo-105861.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1',
+  'menu-rosemary.jpg': 'https://images.pexels.com/photos/1079020/pexels-photo-1079020.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1',
+  'menu-cinnamon.jpg': 'https://images.pexels.com/photos/1383908/pexels-photo-1383908.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1',
+  'menu-focaccia.jpg': 'https://images.pexels.com/photos/12335533/pexels-photo-12335533.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1',
+  'menu-starter.jpg':  'https://images.pexels.com/photos/209180/pexels-photo-209180.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1',
+  'hero-menu.jpg':     'https://images.pexels.com/photos/7541727/pexels-photo-7541727.jpeg?auto=compress&cs=tinysrgb&w=1600&h=500&dpr=1',
+  'hero-order.jpg':    'https://images.pexels.com/photos/209180/pexels-photo-209180.jpeg?auto=compress&cs=tinysrgb&w=1600&h=500&dpr=1',
+  'hero-contact.jpg':  'https://images.pexels.com/photos/7175448/pexels-photo-7175448.jpeg?auto=compress&cs=tinysrgb&w=1600&h=500&dpr=1',
+};
+
+// ─── Image proxy — fetches from Pexels server-side, caches to disk ─────────
+function fetchUrl(url) {
+  return new Promise((resolve, reject) => {
+    const client = url.startsWith('https') ? https : http;
+    const chunks = [];
+    const req = client.get(url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (compatible; WeekendLoaf/1.0)',
+        'Accept': 'image/jpeg,image/*',
+      },
+    }, res => {
+      if (res.statusCode === 301 || res.statusCode === 302) {
+        return fetchUrl(res.headers.location).then(resolve).catch(reject);
+      }
+      if (res.statusCode !== 200) return reject(new Error(`HTTP ${res.statusCode}`));
+      res.on('data', c => chunks.push(c));
+      res.on('end', () => resolve({ buffer: Buffer.concat(chunks), contentType: res.headers['content-type'] || 'image/jpeg' }));
+    });
+    req.setTimeout(20000, () => { req.destroy(); reject(new Error('Timeout')); });
+    req.on('error', reject);
+  });
+}
+
+app.get('/images/:filename', async (req, res) => {
+  const { filename } = req.params;
+  const localPath = path.join(IMAGES_DIR, filename);
+
+  // Serve from disk cache if available
+  if (fs.existsSync(localPath) && fs.statSync(localPath).size > 5000) {
+    return res.sendFile(localPath);
+  }
+
+  const sourceUrl = IMAGE_SOURCES[filename];
+  if (!sourceUrl) return res.status(404).send('Image not found');
+
+  try {
+    const { buffer, contentType } = await fetchUrl(sourceUrl);
+    // Cache to disk for next time
+    fs.writeFile(localPath, buffer, () => console.log(`[images] cached ${filename}`));
+    res.set('Content-Type', contentType);
+    res.set('Cache-Control', 'public, max-age=604800');
+    res.send(buffer);
+  } catch (err) {
+    console.error(`[images] failed to fetch ${filename}:`, err.message);
+    res.status(502).send('Could not load image');
+  }
+});
 
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'public')));
