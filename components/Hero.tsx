@@ -28,17 +28,21 @@ export default function Hero() {
       {/* Content */}
       <div className="relative z-10 text-center px-4 max-w-4xl mx-auto pt-16">
         <div className="inline-flex items-center gap-2 bg-white/20 border border-white/30 rounded-full px-4 py-1.5 text-white text-sm font-medium mb-6">
-          <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
-          Serving your local area
+          <span className="w-2 h-2 bg-amber-400 rounded-full animate-pulse"></span>
+          Licensed & Insured · ROC #357770 · Arizona
         </div>
 
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
-          Your Dream Yard,<br />
-          <span className="text-green-400">Expertly Crafted</span>
+        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-4 leading-tight">
+          Wild Roots<br />
+          <span className="text-amber-400">Custom Landscaping</span>
         </h1>
 
-        <p className="text-lg sm:text-xl text-white/85 mb-10 max-w-2xl mx-auto leading-relaxed">
-          From lush lawns to stunning landscape designs — Green Horizon Landscaping brings beauty and value to your outdoor space. Free estimates, no obligation.
+        <p className="text-lg sm:text-xl text-white/90 mb-3 font-semibold tracking-wide uppercase">
+          Transform Your Outdoor Space Today
+        </p>
+
+        <p className="text-base sm:text-lg text-white/80 mb-10 max-w-2xl mx-auto leading-relaxed">
+          Artificial turf, pavers, irrigation, weed management & more — delivered by Arizona-certified professionals you can trust.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
@@ -80,13 +84,13 @@ export default function Hero() {
             <svg className="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
             </svg>
-            <span className="text-sm font-medium">Satisfaction Guaranteed</span>
+            <span className="text-sm font-medium">ROC #357770</span>
           </div>
           <div className="flex items-center gap-2">
             <svg className="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
               <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
             </svg>
-            <span className="text-sm font-medium">10+ Years Experience</span>
+            <span className="text-sm font-medium">AZ Certified Professionals</span>
           </div>
         </div>
       </div>

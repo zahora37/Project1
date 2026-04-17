@@ -13,12 +13,12 @@ type FormData = {
 }
 
 const services = [
-  'Lawn Mowing',
-  'Landscape Design',
-  'Tree Trimming',
+  'Artificial Turf',
+  'Paver Installation',
   'Irrigation System',
-  'Seasonal Cleanup',
-  'Hardscaping',
+  'Landscape Maintenance',
+  'Weed Management',
+  'Multiple Services',
   'Other / Not Sure',
 ]
 
@@ -50,8 +50,11 @@ export default function ContactForm() {
         <h2 className="text-3xl md:text-4xl font-bold text-white text-center mb-4">
           Get Your Free Estimate
         </h2>
-        <p className="text-green-100 text-center mb-10 text-lg">
-          Fill out the form below and we&apos;ll get back to you within one business day.
+        <p className="text-green-100 text-center mb-2 text-lg">
+          Fill out the form and we&apos;ll get back to you fast.
+        </p>
+        <p className="text-green-200 text-center mb-10 text-sm">
+          Or call/text us directly: <a href="tel:8054782466" className="font-bold text-amber-300 hover:text-amber-200">(805) 478-2466</a>
         </p>
 
         {submitted ? (

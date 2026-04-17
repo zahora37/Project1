@@ -1,45 +1,45 @@
 const services = [
   {
     icon: '🌿',
-    title: 'Lawn Mowing',
+    title: 'Artificial Turf',
     description:
-      'Regular mowing, edging, and blowing to keep your lawn looking pristine every week or bi-weekly.',
-    price: 'From $40/visit',
+      'Professional artificial turf installation that looks lush year-round — zero watering, zero mowing, and built to last. Perfect for Arizona\'s climate.',
+    price: 'Free estimate',
   },
   {
-    icon: '🌳',
-    title: 'Landscape Design',
+    icon: '🪨',
+    title: 'Paver Installation',
     description:
-      'Custom designs that transform your yard into a beautiful outdoor living space tailored to your style.',
-    price: 'From $500',
-  },
-  {
-    icon: '✂️',
-    title: 'Tree Trimming',
-    description:
-      'Professional pruning and trimming to keep your trees healthy, safe, and looking their best.',
-    price: 'From $150/tree',
+      'Beautiful, durable paver driveways, patios, pathways, and courtyards that add real value and curb appeal to your property.',
+    price: 'Free estimate',
   },
   {
     icon: '💧',
     title: 'Irrigation Systems',
     description:
-      'Smart irrigation installation and repair to keep your lawn watered efficiently, saving you water and money.',
-    price: 'From $1,500',
+      'Smart irrigation design, installation, and repair. We are Arizona Landscape Contractor\'s Association Certified Irrigation Technicians.',
+    price: 'Free estimate',
   },
   {
-    icon: '🍂',
-    title: 'Seasonal Cleanup',
+    icon: '🌱',
+    title: 'Landscape Maintenance',
     description:
-      'Spring and fall cleanup including leaf removal, bed prep, and debris clearing to get your yard season-ready.',
-    price: 'From $200',
+      'Ongoing maintenance to keep your outdoor space clean, healthy, and beautiful all year. Reliable, scheduled service you can count on.',
+    price: 'Free estimate',
   },
   {
-    icon: '🪨',
-    title: 'Hardscaping',
+    icon: '🌾',
+    title: 'Weed Management',
     description:
-      'Patios, walkways, retaining walls, and fire pits that add value and extend your usable outdoor space.',
-    price: 'From $3,000',
+      'Effective weed control and prevention treatments tailored to Arizona landscapes. We\'re PMD Qualified Applicators for safe, professional results.',
+    price: 'Free estimate',
+  },
+  {
+    icon: '✨',
+    title: '& More',
+    description:
+      'Custom landscaping solutions for any outdoor challenge. ISA Certified Arborist on staff. Ask us about your project — we can handle it.',
+    price: 'Free estimate',
   },
 ]
 
@@ -49,7 +49,7 @@ export default function Services() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="section-title">Our Services</h2>
         <p className="section-subtitle">
-          From routine maintenance to full landscape transformations — we do it all with care and expertise.
+          From artificial turf to full landscape transformations — certified Arizona professionals you can trust.
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -63,7 +63,7 @@ export default function Services() {
                 {service.title}
               </h3>
               <p className="text-gray-500 text-sm leading-relaxed mb-4">{service.description}</p>
-              <span className="inline-block bg-green-50 text-green-700 text-sm font-semibold px-3 py-1 rounded-full">
+              <span className="inline-block bg-amber-50 text-amber-700 text-sm font-semibold px-3 py-1 rounded-full">
                 {service.price}
               </span>
             </div>
@@ -71,7 +71,7 @@ export default function Services() {
         </div>
 
         <div className="text-center mt-12">
-          <p className="text-gray-500 mb-4">Not sure what you need? Chat with our AI assistant or request a free estimate.</p>
+          <p className="text-gray-500 mb-4">Not sure what you need? Our AI assistant can help, or request a free on-site estimate.</p>
           <a href="#contact" className="btn-primary">
             Get a Free Estimate
           </a>

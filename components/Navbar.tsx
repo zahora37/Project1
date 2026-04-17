@@ -19,10 +19,10 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <a href="#" className="flex items-center gap-2">
-            <span className="text-2xl">🌿</span>
-            <span className="font-bold text-green-700 text-lg leading-tight">
-              Green Horizon<br />
-              <span className="text-sm font-normal text-gray-500">Landscaping</span>
+            <span className="text-2xl">🌳</span>
+            <span className="font-bold text-green-800 text-lg leading-tight">
+              Wild Roots<br />
+              <span className="text-sm font-normal text-amber-600">Custom Landscaping, LLC</span>
             </span>
           </a>
 

@@ -5,14 +5,14 @@ import './globals.css'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Green Horizon Landscaping | Professional Lawn & Landscape Services',
+  title: 'Wild Roots Custom Landscaping | Arizona Landscaping Experts',
   description:
-    'Transform your outdoor space with Green Horizon Landscaping. Expert lawn care, landscape design, tree trimming, irrigation, and hardscaping. Free estimates available.',
+    'Wild Roots Custom Landscaping, LLC — Arizona\'s trusted landscaping company. Artificial turf, pavers, irrigation, weed management & more. Licensed & Insured. ROC #357770. Call (805) 478-2466.',
   keywords:
-    'landscaping, lawn care, lawn mowing, landscape design, tree trimming, hardscaping, irrigation, seasonal cleanup',
+    'landscaping arizona, artificial turf, paver installation, irrigation systems, weed management, landscape maintenance, ROC 357770, wild roots landscaping',
   openGraph: {
-    title: 'Green Horizon Landscaping',
-    description: 'Professional landscaping services for your home or business. Get a free estimate today.',
+    title: 'Wild Roots Custom Landscaping, LLC',
+    description: 'Transform your outdoor space today. Arizona\'s certified landscaping experts. Free estimates.',
     type: 'website',
   },
 }
