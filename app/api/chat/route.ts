@@ -1,8 +1,6 @@
 import Anthropic from '@anthropic-ai/sdk'
 import { NextRequest, NextResponse } from 'next/server'
 
-const client = new Anthropic()
-
 const SYSTEM_PROMPT = `You are the friendly AI assistant for Wild Roots Custom Landscaping, LLC — an Arizona-based landscaping company. Your name is Roots. You talk like a helpful, knowledgeable neighbor — warm, real, and never pushy.
 
 COMPANY INFO:
@@ -55,6 +53,11 @@ type Message = {
 
 export async function POST(req: NextRequest) {
   try {
+    if (!process.env.ANTHROPIC_API_KEY) {
+      return NextResponse.json({ error: 'API key not configured. Please contact us at (805) 478-2466.' }, { status: 500 })
+    }
+
+    const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
     const { messages }: { messages: Message[] } = await req.json()
 
     if (!messages || !Array.isArray(messages)) {
