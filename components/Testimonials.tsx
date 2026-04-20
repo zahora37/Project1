@@ -40,7 +40,7 @@ export default function Testimonials() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="section-title">What Our Customers Say</h2>
         <p className="section-subtitle">
-          Real reviews from real neighbors. We let our work — and our customers — speak for us.
+          Real reviews from real Arizona neighbors. We let our work and our customers speak for us.
         </p>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">

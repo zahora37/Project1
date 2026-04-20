@@ -37,7 +37,7 @@ export default function About() {
               Wild Roots Custom Landscaping, LLC is a fully licensed and insured landscaping company serving the local Arizona community. We specialize in artificial turf, paver installation, irrigation systems, weed management, and full landscape maintenance.
             </p>
             <p className="text-gray-600 mb-6 leading-relaxed">
-              Our team holds some of the highest certifications in the industry — so when we work on your property, you know it's done right.
+              Our team holds some of the highest certifications in the industry. When we work on your property, you know it's done right.
             </p>
 
             {/* Certifications */}

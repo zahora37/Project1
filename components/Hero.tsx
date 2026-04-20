@@ -6,15 +6,17 @@ export default function Hero() {
       id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Background — real Arizona landscaping photo */}
+      {/* Background - warm Arizona desert landscape */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{
-          backgroundImage: `url('https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=1920&q=90')`,
+          backgroundImage: `url('https://images.unsplash.com/photo-1601760562234-9814eea6db90?w=1920&q=90')`,
         }}
       />
-      {/* Rich dark-green gradient overlay for readability */}
-      <div className="absolute inset-0 bg-gradient-to-br from-green-950/90 via-green-900/75 to-black/70" />
+      {/* Organic multi-layer gradient - light and natural, not heavy */}
+      <div className="absolute inset-0 bg-gradient-to-b from-black/50 via-stone-900/25 to-black/35" />
+      <div className="absolute inset-0 bg-gradient-to-r from-green-950/50 via-transparent to-green-950/30" />
+      <div className="absolute inset-0 bg-gradient-to-t from-amber-950/20 via-transparent to-transparent" />
 
       {/* Decorative side accent */}
       <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-amber-400 via-green-400 to-transparent" />
