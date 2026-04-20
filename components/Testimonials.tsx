@@ -1,23 +1,23 @@
 const testimonials = [
   {
     name: 'Sarah M.',
-    location: 'Oakwood Hills',
+    location: 'Scottsdale, AZ',
     stars: 5,
-    text: "Green Horizon completely transformed our backyard. We went from a patchy mess to a beautiful lawn with a stone walkway and flower beds. The team was professional, on time, and the results exceeded our expectations. We get compliments from neighbors constantly now!",
+    text: "Wild Roots completely transformed our backyard. We went from a patchy mess to a beautiful desert landscape with a stone walkway and agave beds. The team was professional, on time, and the results exceeded our expectations. We get compliments from neighbors constantly now!",
     service: 'Landscape Design & Hardscaping',
   },
   {
     name: 'James T.',
-    location: 'Riverdale Estates',
+    location: 'Gilbert, AZ',
     stars: 5,
-    text: "I've been using Green Horizon for weekly lawn mowing for two years and couldn't be happier. They always show up when they say they will, do a thorough job, and the price is very fair. Easy to communicate with and they noticed a drainage issue before it became a big problem.",
-    service: 'Weekly Lawn Mowing',
+    text: "I had Wild Roots install artificial turf in my front and back yard. Best decision I ever made. Zero maintenance, always green, and my water bill dropped significantly. Their crew was clean, fast, and respectful of our property.",
+    service: 'Artificial Turf Installation',
   },
   {
     name: 'Linda & Bob K.',
-    location: 'Maple Creek',
+    location: 'Mesa, AZ',
     stars: 5,
-    text: "After getting quotes from three companies, we went with Green Horizon for our irrigation system. Best decision we made! Our water bill dropped significantly and the lawn has never looked healthier. Their AI chat on the website was actually really helpful for getting initial info.",
+    text: "After getting quotes from three companies, we went with Wild Roots for our irrigation system. Best decision we made! Our water bill dropped significantly and the yard has never looked healthier. Their AI chat on the website was actually really helpful for getting initial info.",
     service: 'Irrigation System',
   },
 ]

@@ -45,7 +45,7 @@ export default function About() {
               <p className="text-xs font-bold text-green-800 uppercase tracking-wider mb-3">Our Certifications</p>
               <ul className="space-y-2">
                 {[
-                  'ROC #357770 — Licensed & Insured',
+                  'ROC #357770 - Licensed & Insured',
                   'PMD Qualified Applicator',
                   'ISA Certified Arborist / Municipal Specialist',
                   'AZ Landscape Contractor\'s Association: Certified Irrigation Technician',

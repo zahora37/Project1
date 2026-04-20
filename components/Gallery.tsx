@@ -1,33 +1,33 @@
 const photos = [
   {
-    src: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80',
-    alt: 'Beautiful green lawn after mowing',
-    label: 'Lawn Mowing',
+    src: 'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=600&q=80',
+    alt: 'Artificial turf installation in Arizona backyard',
+    label: 'Artificial Turf',
   },
   {
-    src: 'https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=600&q=80',
-    alt: 'Landscape design with flowers and shrubs',
-    label: 'Landscape Design',
+    src: 'https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?w=600&q=80',
+    alt: 'Paver patio with desert plants and outdoor seating',
+    label: 'Paver Installation',
   },
   {
-    src: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&q=80',
-    alt: 'Garden maintenance in progress',
-    label: 'Garden Care',
+    src: 'https://images.unsplash.com/photo-1448630360428-65456885c650?w=600&q=80',
+    alt: 'Saguaro cactus and desert landscape Arizona',
+    label: 'Desert Landscaping',
   },
   {
-    src: 'https://images.unsplash.com/photo-1523301343968-6a6ebf63c672?w=600&q=80',
-    alt: 'Stone patio hardscaping',
-    label: 'Hardscaping',
+    src: 'https://images.unsplash.com/photo-1601760562234-9814eea6db90?w=600&q=80',
+    alt: 'Drip irrigation system in Arizona desert garden',
+    label: 'Irrigation Systems',
   },
   {
-    src: 'https://images.unsplash.com/photo-1600585152220-90363fe7e115?w=600&q=80',
-    alt: 'Lush backyard landscaping',
-    label: 'Full Backyard',
+    src: 'https://images.unsplash.com/photo-1526628953301-3cd40e5a4638?w=600&q=80',
+    alt: 'Arizona desert rock and gravel landscape',
+    label: 'Rock Landscaping',
   },
   {
-    src: 'https://images.unsplash.com/photo-1501004318641-b39e6451bec6?w=600&q=80',
-    alt: 'Tree trimming and pruning',
-    label: 'Tree Trimming',
+    src: 'https://images.unsplash.com/photo-1580489944761-15a19d654956?w=600&q=80',
+    alt: 'Desert succulent and agave garden maintenance',
+    label: 'Desert Garden Care',
   },
 ]
 
@@ -37,7 +37,7 @@ export default function Gallery() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="section-title">Our Work</h2>
         <p className="section-subtitle">
-          A glimpse at some of the yards we&apos;ve transformed. Your yard could be next.
+          Arizona desert landscaping done right. Your yard could be next.
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">

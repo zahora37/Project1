@@ -41,7 +41,7 @@ export default function Hero() {
         </p>
 
         <p className="text-base sm:text-lg text-white/70 mb-12 max-w-2xl mx-auto leading-relaxed">
-          Artificial turf · Pavers · Irrigation · Weed management & more —
+          Artificial turf, pavers, irrigation, weed management and more,
           by Arizona-certified professionals with the credentials to back it up.
         </p>
 

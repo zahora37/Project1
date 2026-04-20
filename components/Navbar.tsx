@@ -6,7 +6,7 @@ const navLinks = [
   { label: 'Services', href: '#services' },
   { label: 'About', href: '#about' },
   { label: 'Gallery', href: '#gallery' },
-  { label: 'Testimonials', href: '#testimonials' },
+  { label: 'Tips', href: '#tips' },
   { label: 'Contact', href: '#contact' },
 ]
 
@@ -37,6 +37,9 @@ export default function Navbar() {
                 {link.label}
               </a>
             ))}
+            <a href="#booking" className="text-green-700 font-semibold text-sm hover:text-green-600 transition-colors">
+              Book Online
+            </a>
             <a href="#contact" className="btn-primary text-sm py-2 px-4">
               Get Free Quote
             </a>

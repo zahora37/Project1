@@ -62,7 +62,7 @@ export default function Footer() {
               {/* Social Media */}
               <div className="flex gap-3 pt-2">
                 <a
-                  href="YOUR_INSTAGRAM_LINK"
+                  href="https://www.instagram.com/wild_roots_custom_landscapes"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white text-xs font-semibold px-3 py-1.5 rounded-lg hover:opacity-90 transition-opacity"

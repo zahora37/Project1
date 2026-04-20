@@ -4,7 +4,9 @@ import Hero from '@/components/Hero'
 import Services from '@/components/Services'
 import About from '@/components/About'
 import Gallery from '@/components/Gallery'
+import LandscapeTips from '@/components/LandscapeTips'
 import Testimonials from '@/components/Testimonials'
+import BookingSection from '@/components/BookingSection'
 import Footer from '@/components/Footer'
 import ChatWidget from '@/components/ChatWidget'
 
@@ -20,7 +22,9 @@ export default function Home() {
         <Services />
         <About />
         <Gallery />
+        <LandscapeTips />
         <Testimonials />
+        <BookingSection />
         <ContactForm />
       </main>
       <Footer />
