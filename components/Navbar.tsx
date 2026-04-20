@@ -16,11 +16,11 @@ export default function Navbar() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-20">
           {/* Logo */}
-          <a href="#" className="flex items-center gap-2">
-            <img src="/logo.png" alt="Wild Roots Logo" className="h-10 w-auto object-contain" />
-            <span className="font-bold text-green-800 text-lg leading-tight">
+          <a href="#" className="flex items-center gap-3">
+            <img src="/logo.png" alt="Wild Roots Logo" className="h-14 w-auto object-contain" />
+            <span className="font-bold text-green-800 text-xl leading-tight">
               Wild Roots<br />
               <span className="text-sm font-normal text-amber-600">Custom Landscaping, LLC</span>
             </span>

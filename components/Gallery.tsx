@@ -1,8 +1,8 @@
 const tiles = [
   {
-    gradient: 'from-green-800 to-green-900',
-    ring: 'ring-green-600',
-    iconColor: 'text-amber-400',
+    gradient: 'from-green-700 to-green-800',
+    ring: 'ring-green-500',
+    iconColor: 'text-amber-300',
     name: 'Artificial Turf',
     sub: 'Zero water. Always green.',
     icon: (
@@ -13,9 +13,9 @@ const tiles = [
     ),
   },
   {
-    gradient: 'from-stone-600 to-stone-700',
-    ring: 'ring-stone-400',
-    iconColor: 'text-green-200',
+    gradient: 'from-green-700 to-green-800',
+    ring: 'ring-green-500',
+    iconColor: 'text-white',
     name: 'Paver Installation',
     sub: 'Driveways, patios & paths',
     icon: (
@@ -38,8 +38,8 @@ const tiles = [
     ),
   },
   {
-    gradient: 'from-green-600 to-green-700',
-    ring: 'ring-green-400',
+    gradient: 'from-green-700 to-green-800',
+    ring: 'ring-green-500',
     iconColor: 'text-white',
     name: 'Landscape Maintenance',
     sub: 'Year-round care',
@@ -50,9 +50,9 @@ const tiles = [
     ),
   },
   {
-    gradient: 'from-green-900 to-green-950',
-    ring: 'ring-green-700',
-    iconColor: 'text-amber-400',
+    gradient: 'from-green-700 to-green-800',
+    ring: 'ring-green-500',
+    iconColor: 'text-amber-300',
     name: 'Weed Management',
     sub: 'PMD certified applicators',
     icon: (
@@ -62,9 +62,9 @@ const tiles = [
     ),
   },
   {
-    gradient: 'from-stone-700 to-stone-800',
-    ring: 'ring-stone-500',
-    iconColor: 'text-green-200',
+    gradient: 'from-green-700 to-green-800',
+    ring: 'ring-green-500',
+    iconColor: 'text-white',
     name: 'Custom Projects',
     sub: 'ISA certified arborist',
     icon: (
@@ -88,15 +88,15 @@ export default function Gallery() {
           {tiles.map((tile) => (
             <div
               key={tile.name}
-              className={`bg-gradient-to-br ${tile.gradient} ring-2 ${tile.ring} rounded-2xl p-6 sm:p-8 flex flex-col items-center justify-center text-center aspect-square group hover:scale-[1.02] transition-transform duration-300 shadow-lg`}
+              className={`bg-gradient-to-br ${tile.gradient} ring-2 ${tile.ring} rounded-2xl p-4 sm:p-5 flex flex-col items-center justify-center text-center h-44 sm:h-52 group hover:scale-[1.02] transition-transform duration-300 shadow-md`}
             >
-              <div className={`${tile.iconColor} mb-4 opacity-90 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300`}>
+              <div className={`${tile.iconColor} mb-3 opacity-90 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300 [&>svg]:w-10 [&>svg]:h-10 sm:[&>svg]:w-12 sm:[&>svg]:h-12`}>
                 {tile.icon}
               </div>
-              <h3 className="text-white font-bold text-base sm:text-lg leading-tight mb-1">
+              <h3 className="text-white font-bold text-sm sm:text-base leading-tight mb-0.5">
                 {tile.name}
               </h3>
-              <p className="text-white/60 text-xs sm:text-sm font-medium">
+              <p className="text-white/60 text-xs font-medium">
                 {tile.sub}
               </p>
             </div>

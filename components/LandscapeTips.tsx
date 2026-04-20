@@ -5,7 +5,7 @@ const tips = [
     title: 'Water Early Morning, Never Midday',
     description:
       'In Arizona summers, watering at noon loses up to 50% of water to evaporation before it ever reaches the roots. Water between 4 and 8 AM when temps are coolest. Drip irrigation delivers water right to root zones and cuts usage by up to 60% compared to sprinklers.',
-    img: 'https://images.unsplash.com/photo-1523301343968-6a6ebf63c672?w=700&q=80',
+    img: 'https://source.unsplash.com/800x500/?drip-irrigation,desert-garden',
   },
   {
     number: '02',
@@ -13,7 +13,7 @@ const tips = [
     title: 'Plant Desert-Native Species',
     description:
       'Plants like saguaro, agave, palo verde, desert willow, and brittlebush are built for Arizona heat. Once established they need almost no irrigation and stay beautiful through summer highs above 115 degrees. They also attract native pollinators and support the local ecosystem.',
-    img: 'https://images.unsplash.com/photo-1501004318641-b39e6451bec6?w=700&q=80',
+    img: 'https://source.unsplash.com/800x500/?saguaro,cactus,arizona-desert',
   },
   {
     number: '03',
@@ -21,7 +21,7 @@ const tips = [
     title: 'Use Rock or Gravel Ground Cover',
     description:
       'A 3 to 4 inch layer of decomposed granite or river rock keeps soil temperatures 15 to 20 degrees cooler, locks in moisture, and eliminates weeds naturally. Unlike wood mulch, gravel will not break down or attract termites in the Arizona climate, making it a long-lasting, low-maintenance choice.',
-    img: 'https://images.unsplash.com/photo-1600585152220-90363fe7e115?w=700&q=80',
+    img: 'https://source.unsplash.com/800x500/?decomposed-granite,gravel-garden,desert-landscaping',
   },
 ]
 
