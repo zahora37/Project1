@@ -1,5 +1,3 @@
-import WildRootsLogo from './WildRootsLogo'
-
 const footerLinks = {
   Services: [
     { label: 'Artificial Turf', href: '#services' },
@@ -24,7 +22,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="lg:col-span-2">
             <div className="flex items-center gap-3 mb-4">
-              <WildRootsLogo className="h-14 w-auto" />
+              <img src="/logo.png" alt="Wild Roots Logo" className="h-14 w-auto object-contain" />
               <div>
                 <div className="text-white font-bold text-lg">Wild Roots</div>
                 <div className="text-amber-400 text-sm">Custom Landscaping, LLC</div>

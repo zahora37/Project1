@@ -1,7 +1,6 @@
 'use client'
 
 import { useState } from 'react'
-import WildRootsLogo from './WildRootsLogo'
 
 const navLinks = [
   { label: 'Services', href: '#services' },
@@ -20,7 +19,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <a href="#" className="flex items-center gap-2">
-            <WildRootsLogo className="h-10 w-auto" />
+            <img src="/logo.png" alt="Wild Roots Logo" className="h-10 w-auto object-contain" />
             <span className="font-bold text-green-800 text-lg leading-tight">
               Wild Roots<br />
               <span className="text-sm font-normal text-amber-600">Custom Landscaping, LLC</span>
