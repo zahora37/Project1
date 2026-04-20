@@ -13,9 +13,9 @@ const tiles = [
     ),
   },
   {
-    gradient: 'from-amber-600 to-amber-700',
-    ring: 'ring-amber-400',
-    iconColor: 'text-white',
+    gradient: 'from-stone-600 to-stone-700',
+    ring: 'ring-stone-400',
+    iconColor: 'text-green-200',
     name: 'Paver Installation',
     sub: 'Driveways, patios & paths',
     icon: (
@@ -38,9 +38,9 @@ const tiles = [
     ),
   },
   {
-    gradient: 'from-stone-600 to-stone-700',
-    ring: 'ring-stone-400',
-    iconColor: 'text-green-300',
+    gradient: 'from-green-600 to-green-700',
+    ring: 'ring-green-400',
+    iconColor: 'text-white',
     name: 'Landscape Maintenance',
     sub: 'Year-round care',
     icon: (
@@ -62,9 +62,9 @@ const tiles = [
     ),
   },
   {
-    gradient: 'from-amber-700 to-amber-800',
-    ring: 'ring-amber-500',
-    iconColor: 'text-white',
+    gradient: 'from-stone-700 to-stone-800',
+    ring: 'ring-stone-500',
+    iconColor: 'text-green-200',
     name: 'Custom Projects',
     sub: 'ISA certified arborist',
     icon: (
