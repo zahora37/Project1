@@ -6,92 +6,81 @@ export default function Hero() {
       id="home"
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
-      {/* Background video */}
-      <video
-        autoPlay
-        loop
-        muted
-        playsInline
-        className="absolute inset-0 w-full h-full object-cover"
-      >
-        <source src="/videos/hero.mp4" type="video/mp4" />
-        {/* Fallback photo if video fails to load */}
-        <img
-          src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=1920&q=80"
-          alt="Landscaping background"
-          className="w-full h-full object-cover"
-        />
-      </video>
-      {/* Dark overlay so text stays readable over the video */}
-      <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
+      {/* Background — real Arizona landscaping photo */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+        style={{
+          backgroundImage: `url('https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?w=1920&q=90')`,
+        }}
+      />
+      {/* Rich dark-green gradient overlay for readability */}
+      <div className="absolute inset-0 bg-gradient-to-br from-green-950/90 via-green-900/75 to-black/70" />
+
+      {/* Decorative side accent */}
+      <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-amber-400 via-green-400 to-transparent" />
 
       {/* Content */}
-      <div className="relative z-10 text-center px-4 max-w-4xl mx-auto pt-16">
-        <div className="inline-flex items-center gap-2 bg-white/20 border border-white/30 rounded-full px-4 py-1.5 text-white text-sm font-medium mb-6">
-          <span className="w-2 h-2 bg-amber-400 rounded-full animate-pulse"></span>
-          Licensed & Insured · ROC #357770 · Arizona
+      <div className="relative z-10 text-center px-4 max-w-5xl mx-auto pt-20">
+
+        {/* Badge */}
+        <div className="inline-flex items-center gap-2 bg-amber-400/20 border border-amber-400/50 rounded-full px-5 py-2 text-amber-300 text-sm font-semibold mb-8 tracking-wide">
+          <span className="w-2 h-2 bg-amber-400 rounded-full animate-pulse" />
+          Arizona Licensed & Insured · ROC #357770
         </div>
 
-        <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-4 leading-tight">
-          Wild Roots<br />
-          <span className="text-amber-400">Custom Landscaping</span>
+        {/* Main headline */}
+        <h1 className="text-5xl sm:text-6xl md:text-7xl font-extrabold text-white mb-5 leading-none tracking-tight">
+          Wild Roots
+          <span className="block text-amber-400 mt-1">Custom Landscaping</span>
         </h1>
 
-        <p className="text-lg sm:text-xl text-white/90 mb-3 font-semibold tracking-wide uppercase">
+        <div className="w-24 h-1 bg-amber-400 mx-auto mb-6 rounded-full" />
+
+        <p className="text-xl sm:text-2xl text-white/90 mb-3 font-bold tracking-widest uppercase">
           Transform Your Outdoor Space Today
         </p>
 
-        <p className="text-base sm:text-lg text-white/80 mb-10 max-w-2xl mx-auto leading-relaxed">
-          Artificial turf, pavers, irrigation, weed management & more — delivered by Arizona-certified professionals you can trust.
+        <p className="text-base sm:text-lg text-white/70 mb-12 max-w-2xl mx-auto leading-relaxed">
+          Artificial turf · Pavers · Irrigation · Weed management & more —
+          by Arizona-certified professionals with the credentials to back it up.
         </p>
 
-        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+        {/* CTAs */}
+        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16">
           <a
             href="#contact"
-            className="btn-outline text-base px-8 py-4 rounded-xl w-full sm:w-auto"
+            className="bg-amber-400 hover:bg-amber-300 text-green-950 font-bold px-10 py-4 rounded-xl transition-all duration-200 w-full sm:w-auto text-lg shadow-lg shadow-amber-400/30 hover:scale-105"
           >
-            Get Free Quote
+            Get Free Estimate
           </a>
           <button
             onClick={() => {
               const chatBtn = document.getElementById('chat-toggle-btn')
               chatBtn?.click()
             }}
-            className="bg-white text-green-700 hover:bg-green-50 font-semibold px-8 py-4 rounded-xl transition-colors duration-200 w-full sm:w-auto flex items-center justify-center gap-2"
+            className="bg-white/10 hover:bg-white/20 border-2 border-white/50 text-white font-bold px-10 py-4 rounded-xl transition-all duration-200 w-full sm:w-auto text-lg flex items-center justify-center gap-2 hover:scale-105"
           >
             <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
             </svg>
-            Chat With Us
+            Ask Our AI Assistant
           </button>
         </div>
 
-        {/* Trust badges */}
-        <div className="mt-14 flex flex-wrap justify-center gap-8 text-white/80">
-          <div className="flex items-center gap-2">
-            <svg className="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-            </svg>
-            <span className="text-sm font-medium">Licensed & Insured</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <svg className="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-            </svg>
-            <span className="text-sm font-medium">Free Estimates</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <svg className="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-            </svg>
-            <span className="text-sm font-medium">ROC #357770</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <svg className="w-5 h-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-            </svg>
-            <span className="text-sm font-medium">AZ Certified Professionals</span>
-          </div>
+        {/* Trust strip */}
+        <div className="flex flex-wrap justify-center gap-6 text-white/80">
+          {[
+            { icon: '✓', label: 'Licensed & Insured' },
+            { icon: '✓', label: 'Free Estimates' },
+            { icon: '✓', label: 'ROC #357770' },
+            { icon: '✓', label: 'ISA Certified Arborist' },
+            { icon: '✓', label: 'AZ Certified Pros' },
+          ].map((b) => (
+            <div key={b.label} className="flex items-center gap-1.5 text-sm font-medium">
+              <span className="text-amber-400 font-bold">{b.icon}</span>
+              {b.label}
+            </div>
+          ))}
         </div>
       </div>
 
