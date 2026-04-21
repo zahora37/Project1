@@ -9,71 +9,131 @@ const http = require('http');
 const app = express();
 const PORT = process.env.PORT || 3000;
 const CONFIG_FILE = path.join(__dirname, 'config.json');
-const IMAGES_DIR = path.join(__dirname, 'public', 'images');
-
-// Ensure images directory exists
-if (!fs.existsSync(IMAGES_DIR)) fs.mkdirSync(IMAGES_DIR, { recursive: true });
 
 // ─── Image sources (Pexels free license) ──────────────────────────────────
 const IMAGE_SOURCES = {
-  'hero-kitchen.jpg':  'https://images.pexels.com/photos/6996205/pexels-photo-6996205.jpeg?auto=compress&cs=tinysrgb&w=1920&h=900&dpr=1',
-  'story-loaves.jpg':  'https://images.pexels.com/photos/1383908/pexels-photo-1383908.jpeg?auto=compress&cs=tinysrgb&w=900&h=1100&dpr=1',
-  'menu-classic.jpg':  'https://images.pexels.com/photos/7541727/pexels-photo-7541727.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1',
-  'menu-rye.jpg':      'https://images.pexels.com/photos/105861/pexels-photo-105861.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1',
+  'hero-kitchen.jpg': 'https://images.pexels.com/photos/6996205/pexels-photo-6996205.jpeg?auto=compress&cs=tinysrgb&w=1920&h=900&dpr=1',
+  'story-loaves.jpg': 'https://images.pexels.com/photos/1383908/pexels-photo-1383908.jpeg?auto=compress&cs=tinysrgb&w=900&h=1100&dpr=1',
+  'menu-classic.jpg': 'https://images.pexels.com/photos/7541727/pexels-photo-7541727.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1',
+  'menu-rye.jpg': 'https://images.pexels.com/photos/105861/pexels-photo-105861.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1',
   'menu-rosemary.jpg': 'https://images.pexels.com/photos/1079020/pexels-photo-1079020.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1',
   'menu-cinnamon.jpg': 'https://images.pexels.com/photos/1383908/pexels-photo-1383908.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1',
   'menu-focaccia.jpg': 'https://images.pexels.com/photos/12335533/pexels-photo-12335533.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1',
-  'menu-starter.jpg':  'https://images.pexels.com/photos/209180/pexels-photo-209180.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1',
-  'hero-menu.jpg':     'https://images.pexels.com/photos/7541727/pexels-photo-7541727.jpeg?auto=compress&cs=tinysrgb&w=1600&h=500&dpr=1',
-  'hero-order.jpg':    'https://images.pexels.com/photos/209180/pexels-photo-209180.jpeg?auto=compress&cs=tinysrgb&w=1600&h=500&dpr=1',
-  'hero-contact.jpg':  'https://images.pexels.com/photos/7175448/pexels-photo-7175448.jpeg?auto=compress&cs=tinysrgb&w=1600&h=500&dpr=1',
+  'menu-starter.jpg': 'https://images.pexels.com/photos/209180/pexels-photo-209180.jpeg?auto=compress&cs=tinysrgb&w=800&h=600&dpr=1',
+  'hero-menu.jpg': 'https://images.pexels.com/photos/7541727/pexels-photo-7541727.jpeg?auto=compress&cs=tinysrgb&w=1600&h=500&dpr=1',
+  'hero-order.jpg': 'https://images.pexels.com/photos/209180/pexels-photo-209180.jpeg?auto=compress&cs=tinysrgb&w=1600&h=500&dpr=1',
+  'hero-contact.jpg': 'https://images.pexels.com/photos/7175448/pexels-photo-7175448.jpeg?auto=compress&cs=tinysrgb&w=1600&h=500&dpr=1',
 };
 
-// ─── Image proxy — fetches from Pexels server-side, caches to disk ─────────
-function fetchUrl(url) {
+function isSafeFilename(value) {
+  return typeof value === 'string' && /^[a-z0-9][a-z0-9._-]*$/i.test(value);
+}
+
+function resolveRedirectUrl(currentUrl, locationHeader) {
+  if (!locationHeader) return null;
+  try {
+    return new URL(locationHeader, currentUrl).toString();
+  } catch {
+    return null;
+  }
+}
+
+// ─── Image proxy — Vercel-safe, no disk writes ────────────────────────────
+function fetchUrl(url, redirectCount = 0) {
   return new Promise((resolve, reject) => {
-    const client = url.startsWith('https') ? https : http;
+    if (!url) {
+      reject(new Error('Missing image URL'));
+      return;
+    }
+
+    let parsedUrl;
+    try {
+      parsedUrl = new URL(url);
+    } catch {
+      reject(new Error('Invalid image URL'));
+      return;
+    }
+
+    if (!['http:', 'https:'].includes(parsedUrl.protocol)) {
+      reject(new Error('Unsupported image URL protocol'));
+      return;
+    }
+
+    if (redirectCount > 5) {
+      reject(new Error('Too many redirects'));
+      return;
+    }
+
+    const client = parsedUrl.protocol === 'https:' ? https : http;
     const chunks = [];
-    const req = client.get(url, {
+
+    const req = client.get(parsedUrl, {
       headers: {
         'User-Agent': 'Mozilla/5.0 (compatible; WeekendLoaf/1.0)',
-        'Accept': 'image/jpeg,image/*',
+        Accept: 'image/avif,image/webp,image/apng,image/*,*/*;q=0.8',
       },
-    }, res => {
-      if (res.statusCode === 301 || res.statusCode === 302) {
-        return fetchUrl(res.headers.location).then(resolve).catch(reject);
+    }, (res) => {
+      if ([301, 302, 303, 307, 308].includes(res.statusCode)) {
+        const redirectUrl = resolveRedirectUrl(parsedUrl.toString(), res.headers.location);
+        if (!redirectUrl) {
+          reject(new Error('Redirect missing valid location header'));
+          return;
+        }
+        res.resume();
+        fetchUrl(redirectUrl, redirectCount + 1).then(resolve).catch(reject);
+        return;
       }
-      if (res.statusCode !== 200) return reject(new Error(`HTTP ${res.statusCode}`));
-      res.on('data', c => chunks.push(c));
-      res.on('end', () => resolve({ buffer: Buffer.concat(chunks), contentType: res.headers['content-type'] || 'image/jpeg' }));
+
+      if (res.statusCode !== 200) {
+        res.resume();
+        reject(new Error(`HTTP ${res.statusCode}`));
+        return;
+      }
+
+      res.on('data', (chunk) => chunks.push(chunk));
+      res.on('end', () => {
+        const buffer = Buffer.concat(chunks);
+        if (!buffer.length) {
+          reject(new Error('Empty upstream response'));
+          return;
+        }
+
+        resolve({
+          buffer,
+          contentType: res.headers['content-type'] || 'image/jpeg',
+        });
+      });
     });
-    req.setTimeout(20000, () => { req.destroy(); reject(new Error('Timeout')); });
+
+    req.setTimeout(10000, () => {
+      req.destroy(new Error('Timeout'));
+    });
+
     req.on('error', reject);
   });
 }
 
 app.get('/images/:filename', async (req, res) => {
   const { filename } = req.params;
-  const localPath = path.join(IMAGES_DIR, filename);
 
-  // Serve from disk cache if available
-  if (fs.existsSync(localPath) && fs.statSync(localPath).size > 5000) {
-    return res.sendFile(localPath);
+  if (!filename || !isSafeFilename(filename)) {
+    return res.status(400).json({ error: 'Missing or invalid filename' });
   }
 
   const sourceUrl = IMAGE_SOURCES[filename];
-  if (!sourceUrl) return res.status(404).send('Image not found');
+  if (!sourceUrl) {
+    return res.status(404).json({ error: 'Image not found' });
+  }
 
   try {
     const { buffer, contentType } = await fetchUrl(sourceUrl);
-    // Cache to disk for next time
-    fs.writeFile(localPath, buffer, () => console.log(`[images] cached ${filename}`));
     res.set('Content-Type', contentType);
-    res.set('Cache-Control', 'public, max-age=604800');
-    res.send(buffer);
+    res.set('Cache-Control', 'public, max-age=0, s-maxage=86400, stale-while-revalidate=604800');
+    res.set('X-Content-Type-Options', 'nosniff');
+    return res.send(buffer);
   } catch (err) {
     console.error(`[images] failed to fetch ${filename}:`, err.message);
-    res.status(502).send('Could not load image');
+    return res.status(502).json({ error: 'Could not load image', detail: err.message });
   }
 });
 
@@ -87,7 +147,13 @@ function getConfig() {
 }
 
 function saveConfig(config) {
-  fs.writeFileSync(CONFIG_FILE, JSON.stringify(config, null, 2));
+  try {
+    fs.writeFileSync(CONFIG_FILE, JSON.stringify(config, null, 2));
+    return true;
+  } catch (error) {
+    console.error('[Config Save Error]', error.message);
+    return false;
+  }
 }
 
 function getNextSaturday() {
@@ -102,7 +168,7 @@ function getNextSaturday() {
 function createTransporter() {
   return nodemailer.createTransporter({
     host: process.env.SMTP_HOST || 'smtp.gmail.com',
-    port: parseInt(process.env.SMTP_PORT) || 587,
+    port: parseInt(process.env.SMTP_PORT, 10) || 587,
     secure: process.env.SMTP_SECURE === 'true',
     auth: {
       user: process.env.SMTP_USER,
@@ -138,7 +204,6 @@ app.get('/api/availability', (req, res) => {
   const weekend = config.weekends[date];
 
   if (!weekend) {
-    // Default: open, using global limit
     return res.json({
       date,
       available: true,
@@ -167,14 +232,13 @@ app.get('/api/availability', (req, res) => {
 app.post('/api/order', async (req, res) => {
   const {
     name, email, phone,
-    items, // [{ id, name, quantity, price }]
-    fulfillment, // 'pickup' | 'delivery'
+    items,
+    fulfillment,
     deliveryAddress,
     preferredDate,
     notes,
   } = req.body;
 
-  // Validation
   if (!name || !email || !phone || !items?.length || !fulfillment || !preferredDate) {
     return res.status(400).json({ error: 'Missing required fields.' });
   }
@@ -182,7 +246,6 @@ app.post('/api/order', async (req, res) => {
   const config = getConfig();
   const date = preferredDate;
 
-  // Check availability
   const weekend = config.weekends[date] || {
     soldOut: false,
     ordersPlaced: 0,
@@ -193,19 +256,16 @@ app.post('/api/order', async (req, res) => {
     return res.status(409).json({ error: 'Sorry, this weekend is fully booked. Please choose another date.' });
   }
 
-  // Record order
   if (!config.weekends[date]) {
     config.weekends[date] = { soldOut: false, ordersPlaced: 0, limit: config.maxOrdersPerWeekend };
   }
   config.weekends[date].ordersPlaced = (config.weekends[date].ordersPlaced || 0) + 1;
-  saveConfig(config);
+  const configSaved = saveConfig(config);
 
-  // Calculate total
   const total = items.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const orderRef = `WL-${Date.now().toString(36).toUpperCase()}`;
 
-  // Build item list HTML
-  const itemsHtml = items.map(item =>
+  const itemsHtml = items.map((item) =>
     `<tr>
       <td style="padding:6px 12px;">${item.name}</td>
       <td style="padding:6px 12px;text-align:center;">×${item.quantity}</td>
@@ -213,7 +273,6 @@ app.post('/api/order', async (req, res) => {
     </tr>`
   ).join('');
 
-  // ── Customer confirmation email ──
   const customerHtml = `
   <!DOCTYPE html>
   <html>
@@ -274,7 +333,6 @@ app.post('/api/order', async (req, res) => {
   </body>
   </html>`;
 
-  // ── Owner notification email ──
   const ownerHtml = `
   <!DOCTYPE html>
   <html>
@@ -306,7 +364,6 @@ app.post('/api/order', async (req, res) => {
   </body>
   </html>`;
 
-  // Send emails
   try {
     if (process.env.SMTP_USER && process.env.SMTP_PASS) {
       const transporter = createTransporter();
@@ -328,10 +385,9 @@ app.post('/api/order', async (req, res) => {
     }
   } catch (err) {
     console.error('[Email Error]', err.message);
-    // Don't fail the request — order is already recorded
   }
 
-  res.json({ success: true, orderRef, total });
+  return res.json({ success: true, orderRef, total, persisted: configSaved });
 });
 
 // POST /api/contact
@@ -367,14 +423,17 @@ app.post('/api/contact', async (req, res) => {
     console.error('[Email Error]', err.message);
   }
 
-  res.json({ success: true });
+  return res.json({ success: true });
 });
 
-// Serve all HTML pages
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-app.listen(PORT, () => {
-  console.log(`\n🍞  The Weekend Loaf server running at http://localhost:${PORT}\n`);
-});
+if (require.main === module) {
+  app.listen(PORT, () => {
+    console.log(`\n🍞  The Weekend Loaf server running at http://localhost:${PORT}\n`);
+  });
+}
+
+module.exports = app;
