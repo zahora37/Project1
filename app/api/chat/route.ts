@@ -1,6 +1,9 @@
 import Anthropic from '@anthropic-ai/sdk'
 import { NextRequest, NextResponse } from 'next/server'
 
+export const runtime = 'nodejs'
+export const dynamic = 'force-dynamic'
+
 const SYSTEM_PROMPT = `You are the friendly AI assistant for Wild Roots Custom Landscaping, LLC — an Arizona-based landscaping company. Your name is Roots. You talk like a helpful, knowledgeable neighbor — warm, real, and never pushy.
 
 COMPANY INFO:
@@ -51,22 +54,50 @@ type Message = {
   content: string
 }
 
+const DEFAULT_MODEL = process.env.ANTHROPIC_MODEL || 'claude-sonnet-4-20250514'
+
+function getSafeFallbackMessage() {
+  return 'Thanks for reaching out. Call or text us at (805) 478-2466 for a free on-site estimate, or send your details through the form and our team will follow up.'
+}
+
+function normalizeMessages(input: unknown): Message[] {
+  if (!Array.isArray(input)) return []
+
+  return input
+    .filter((item): item is Message => {
+      return !!item && typeof item === 'object' && (item as Message).role !== undefined && typeof (item as Message).content === 'string'
+    })
+    .filter((item) => item.role === 'user' || item.role === 'assistant')
+    .map((item) => ({
+      role: item.role,
+      content: item.content.trim(),
+    }))
+    .filter((item) => item.content.length > 0)
+    .slice(-20)
+}
+
 export async function POST(req: NextRequest) {
   try {
+    const body = await req.json().catch(() => null)
+    const messages = normalizeMessages(body?.messages)
+
+    if (!messages.length) {
+      return NextResponse.json({ error: 'Invalid request. Messages are required.' }, { status: 400 })
+    }
+
     if (!process.env.ANTHROPIC_API_KEY) {
-      return NextResponse.json({ error: 'API key not configured. Please contact us at (805) 478-2466.' }, { status: 500 })
+      console.error('Chat API error: missing ANTHROPIC_API_KEY')
+      return NextResponse.json(
+        { message: getSafeFallbackMessage(), fallback: true },
+        { status: 200 }
+      )
     }
 
     const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
-    const { messages }: { messages: Message[] } = await req.json()
-
-    if (!messages || !Array.isArray(messages)) {
-      return NextResponse.json({ error: 'Invalid request' }, { status: 400 })
-    }
 
     const response = await client.messages.create({
-      model: 'claude-sonnet-4-6',
-      max_tokens: 512,
+      model: DEFAULT_MODEL,
+      max_tokens: 300,
       system: SYSTEM_PROMPT,
       messages: messages.map((m) => ({
         role: m.role,
@@ -74,16 +105,35 @@ export async function POST(req: NextRequest) {
       })),
     })
 
-    const text = response.content[0].type === 'text' ? response.content[0].text : ''
+    const textBlocks = response.content
+      .filter((block) => block.type === 'text')
+      .map((block) => block.text)
+      .join('\n')
+      .trim()
 
-    return NextResponse.json({ message: text })
+    if (!textBlocks) {
+      return NextResponse.json(
+        { message: getSafeFallbackMessage(), fallback: true },
+        { status: 200 }
+      )
+    }
+
+    return NextResponse.json({ message: textBlocks })
   } catch (error: unknown) {
     const msg = error instanceof Error ? error.message : String(error)
     console.error('Chat API error:', msg)
-    // Return the real error in dev so we can see what's wrong
+
     return NextResponse.json(
-      { error: `AI error: ${msg}` },
-      { status: 500 }
+      {
+        message: getSafeFallbackMessage(),
+        fallback: true,
+        error: process.env.NODE_ENV === 'development' ? `AI error: ${msg}` : undefined,
+      },
+      { status: 200 }
     )
   }
+}
+
+export async function GET() {
+  return NextResponse.json({ ok: true })
 }
