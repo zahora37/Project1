@@ -84,19 +84,19 @@ export default function Gallery() {
           Expert Arizona landscaping services for every outdoor space.
         </p>
 
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-5">
           {tiles.map((tile) => (
             <div
               key={tile.name}
-              className={`bg-gradient-to-br ${tile.gradient} ring-2 ${tile.ring} rounded-2xl p-4 sm:p-5 flex flex-col items-center justify-center text-center h-44 sm:h-52 group hover:scale-[1.02] transition-transform duration-300 shadow-md`}
+              className={`bg-gradient-to-br ${tile.gradient} ring-2 ${tile.ring} rounded-2xl p-4 sm:p-6 flex flex-col items-center justify-center text-center h-40 sm:h-52 group hover:scale-[1.02] transition-transform duration-300 shadow-md`}
             >
-              <div className={`${tile.iconColor} mb-3 opacity-90 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300 [&>svg]:w-10 [&>svg]:h-10 sm:[&>svg]:w-12 sm:[&>svg]:h-12`}>
+              <div className={`${tile.iconColor} mb-3 opacity-90 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300 [&>svg]:w-9 [&>svg]:h-9 sm:[&>svg]:w-11 sm:[&>svg]:h-11`}>
                 {tile.icon}
               </div>
-              <h3 className="text-white font-bold text-sm sm:text-base leading-tight mb-0.5">
+              <h3 className="text-white font-bold text-sm sm:text-base leading-tight mb-1">
                 {tile.name}
               </h3>
-              <p className="text-white/60 text-xs font-medium">
+              <p className="text-white/70 text-xs font-medium">
                 {tile.sub}
               </p>
             </div>
