@@ -5,8 +5,8 @@ const tips = [
     title: 'Water Early Morning, Never Midday',
     description:
       'In Arizona summers, watering at noon loses up to 50% of water to evaporation before it reaches roots. Water between 4 and 8 AM. Drip irrigation delivers water right to root zones and cuts usage by up to 60% compared to sprinklers.',
-    img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=85',
-    imgAlt: 'Lush irrigated lawn early morning',
+    img: '/images/tip-irrigation.jpg',
+    imgAlt: 'Drip irrigation system with plant and mulch',
   },
   {
     number: '02',
@@ -14,8 +14,8 @@ const tips = [
     title: 'Plant Desert-Native Species',
     description:
       'Saguaro, agave, palo verde, desert willow, and brittlebush are built for Arizona heat. Once established they need almost no irrigation and stay beautiful through summer highs above 115 degrees while supporting native pollinators.',
-    img: 'https://images.unsplash.com/photo-1601760562234-9814eea6db90?w=800&q=85',
-    imgAlt: 'Desert native plants and Arizona landscape',
+    img: '/images/tip-plants.jpg',
+    imgAlt: 'Prickly pear cactus with Arizona red rock mountains',
   },
   {
     number: '03',
@@ -23,8 +23,8 @@ const tips = [
     title: 'Use Rock or Gravel Ground Cover',
     description:
       'A 3 to 4 inch layer of decomposed granite or river rock keeps soil 15 to 20 degrees cooler, locks in moisture, and eliminates weeds. Unlike wood mulch, it will not break down or attract termites in the Arizona climate.',
-    img: 'https://images.unsplash.com/photo-1600585152220-90363fe7e115?w=800&q=85',
-    imgAlt: 'Stone and gravel desert landscape design',
+    img: '/images/tip-rock.jpg',
+    imgAlt: 'Rocky desert mountain landscape with gravel terrain',
   },
 ]
 
