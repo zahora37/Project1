@@ -22,7 +22,7 @@ export default function Hero() {
       <div className="absolute left-0 top-0 bottom-0 w-1 bg-gradient-to-b from-amber-400 via-green-400 to-transparent" />
 
       {/* Content */}
-      <div className="relative z-10 text-center px-4 max-w-5xl mx-auto pt-16 sm:pt-20">
+      <div className="relative z-10 text-center px-4 max-w-5xl mx-auto pt-20 sm:pt-24">
 
         {/* Badge */}
         <div className="inline-flex items-center gap-2 bg-amber-400/20 border border-amber-400/50 rounded-full px-5 py-2 text-amber-300 text-sm font-semibold mb-8 tracking-wide">

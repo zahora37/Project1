@@ -16,13 +16,13 @@ export default function Navbar() {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 bg-white shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 sm:h-20">
+        <div className="flex items-center justify-between h-20 sm:h-24">
           {/* Logo */}
           <a href="#" className="flex items-center gap-2 sm:gap-3 min-w-0">
             <img
               src="/logo.png"
               alt="Wild Roots Logo"
-              className="h-10 sm:h-14 w-auto object-contain flex-shrink-0"
+              className="h-16 sm:h-20 w-auto object-contain flex-shrink-0"
             />
             <div className="min-w-0">
               <div className="font-bold text-green-800 text-base sm:text-xl leading-tight whitespace-nowrap">
