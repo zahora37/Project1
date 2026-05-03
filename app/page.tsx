@@ -489,7 +489,7 @@ export default function Home() {
               { title: 'Artificial Turf', desc: 'Professional installation that looks lush year-round. Zero watering, zero mowing, built to last. Perfect for Arizona\'s climate.' },
               { title: 'Paver Installation', desc: 'Beautiful, durable paver driveways, patios, pathways, and courtyards that add real value and curb appeal.' },
               { title: 'Irrigation Systems', desc: 'Smart irrigation design, installation, and repair. AZ Landscape Contractor\'s Association Certified Irrigation Technicians.' },
-              { title: 'Weed Management', desc: 'Effective weed control and prevention. PMD Qualified Applicators for safe, professional results.' },
+              { title: 'Landscape Maintenance', desc: 'Cleanup, trimming, and upkeep.' },
               { title: 'Tree Management', desc: 'ISA Certified Arborist on staff. Expert care for trees including trimming, health assessment, and removal.' },
               { title: 'And More', desc: 'Custom landscaping solutions for any outdoor challenge. Ask us about your project and we can handle it.' },
             ].map((s) => (
