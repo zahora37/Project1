@@ -3,7 +3,7 @@ import ChatWidget from '@/components/ChatWidget';
 
 export const metadata: Metadata = {
   title: 'Wild Roots Custom Landscaping | Arizona Landscaping Experts',
-  description: 'Arizona-licensed landscaping professionals. Artificial turf, pavers, irrigation, weed management & more. ROC #357770.',
+  description: 'Arizona-licensed landscaping professionals. Artificial turf, pavers, irrigation, Landscape Maintenance & more. ROC #357770.',
   icons: {
     icon: '/logo.png',
     apple: '/logo.png',
