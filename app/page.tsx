@@ -490,7 +490,7 @@ export default function Home() {
               { title: 'Paver Installation', desc: 'Beautiful, durable paver driveways, patios, pathways, and courtyards that add real value and curb appeal.' },
               { title: 'Irrigation Systems', desc: 'Smart irrigation design, installation, and repair. AZ Landscape Contractor\'s Association Certified Irrigation Technicians.' },
               { title: 'Landscape Maintenance', desc: 'Cleanup, trimming, and upkeep.' },
-              { title: 'Tree Management', desc: 'ISA Certified Arborist on staff. Expert care for trees including trimming, health assessment, and removal.' },
+              { title: 'Tree Management', desc: ' Expert care for trees including trimming, health assessment, and removal.' },
               { title: 'And More', desc: 'Custom landscaping solutions for any outdoor challenge. Ask us about your project and we can handle it.' },
             ].map((s) => (
               <div key={s.title} className="service-card">
@@ -590,7 +590,7 @@ export default function Home() {
               { title: 'Artificial Turf', sub: 'Zero water. Always green.' },
               { title: 'Paver Installation', sub: 'Driveways, patios & paths' },
               { title: 'Irrigation Systems', sub: 'Smart water management' },
-              { title: 'Weed Management', sub: 'PMD certified applicators' },
+              { title: 'Landscape Maintenance', sub: 'Cleanup, trimming, and upkeep' },
               { title: 'Tree Management', sub: 'ISA certified arborist' },
             ].map((w) => (
               <div key={w.title} className="work-tile">
@@ -701,7 +701,7 @@ export default function Home() {
               {
                 text: "After getting quotes from three companies, we went with Wild Roots for our irrigation system. Our water bill dropped significantly and the yard has never looked healthier. Their AI chat on the website was actually really helpful.",
                 name: 'Linda & Bob K.',
-                loc: 'Mesa, AZ',
+                loc: 'Goodyear, AZ',
                 service: 'Irrigation System',
               },
             ].map((t) => (
@@ -716,7 +716,7 @@ export default function Home() {
               </div>
             ))}
           </div>
-          {/* Removed: "5.0 · Based on 120+ reviews" */}
+          {/* Removed: "5.0 · Based on 80+ reviews" */}
         </div>
       </section>
 
@@ -826,7 +826,7 @@ export default function Home() {
                 <li><a href="#services">Artificial Turf</a></li>
                 <li><a href="#services">Paver Installation</a></li>
                 <li><a href="#services">Irrigation Systems</a></li>
-                <li><a href="#services">Weed Management</a></li>
+                <li><a href="#services">Landscape Maintenance</a></li>
               </ul>
             </div>
 
@@ -843,7 +843,7 @@ export default function Home() {
 
           <div className="footer-bottom">
             <span>© 2026 Wild Roots Custom Landscaping, LLC. All rights reserved.</span>
-            <span>ROC #357770 · Arizona Licensed &amp; Insured 🌳</span>
+            <span> Arizona Licensed &amp; Insured 🌳</span>
           </div>
         </div>
       </footer>
