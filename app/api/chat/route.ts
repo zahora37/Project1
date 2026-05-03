@@ -54,7 +54,7 @@ type Message = {
   content: string
 }
 
-const DEFAULT_MODEL = process.env.ANTHROPIC_MODEL || 'claude-sonnet-4-20250514'
+const DEFAULT_MODEL = process.env.ANTHROPIC_MODEL || 'claude-sonnet-4-6'
 
 function getSafeFallbackMessage() {
   return 'Thanks for reaching out. Call or text us at (805) 478-2466 for a free on-site estimate, or send your details through the form and our team will follow up.'
