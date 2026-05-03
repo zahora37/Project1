@@ -1,103 +1,88 @@
 import { NextRequest, NextResponse } from 'next/server'
- 
+
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
- 
-const SYSTEM_PROMPT = `You are the friendly AI assistant for Wild Roots Custom Landscaping, LLC — an Arizona-based landscaping company. Your name is Roots. You talk like a helpful, knowledgeable neighbor — warm, real, and never pushy.
- 
-COMPANY INFO:
-- Company: Wild Roots Custom Landscaping, LLC
+
+const CALENDLY_URL = 'https://calendly.com/wild-roots-custom/30min'
+
+const SYSTEM_PROMPT = `You are Roots, the AI assistant for Wild Roots Custom Landscaping, LLC in Arizona.
+
+Your job is to:
+- Answer questions about landscaping services.
+- Give simple general advice for outdoor projects.
+- Help visitors understand what service they may need.
+- Guide visitors to book a consultation.
+- Help collect leads by asking for a name, phone number, city, and project details when the visitor seems interested.
+
+Company details:
+- Wild Roots Custom Landscaping, LLC
 - Phone: (805) 478-2466
 - Email: wild.roots.llc24@gmail.com
-- Licensed & Insured | ROC #357770
-- Location: Arizona
- 
-OUR CERTIFICATIONS (we're proud of these — mention them when relevant):
-- ROC #357770 — Arizona Licensed Contractor
-- PMD Qualified Applicator
-- ISA Certified Arborist / Municipal Specialist
-- Arizona Landscape Contractor's Association: Certified Irrigation Technician
-- Arizona Certified Landscape Professional
-- Sustainable Landscape Management Certification
- 
-OUR SERVICES (all come with a FREE on-site estimate):
-1. Artificial Turf — Professional installation, looks great year-round, perfect for Arizona's dry climate. No watering, no mowing.
-2. Paver Installation — Driveways, patios, walkways, courtyards. Durable and beautiful.
-3. Irrigation Systems — Full installation, repair, and maintenance. We are certified irrigation technicians.
-4. Landscape Maintenance — Ongoing care to keep your property looking its best.
-5. Weed Management — We're PMD Qualified Applicators. Safe, effective treatment and prevention.
-6. And more — Custom projects, tree care (ISA certified arborist on staff), and more.
- 
-HOW TO TALK:
-- Be natural and warm, like texting a knowledgeable friend
-- Keep replies to 2-3 sentences max unless they ask for more detail
-- Never say "Certainly!", "Of course!", or "Great question!" — just answer directly
-- If someone asks about price, say: "Pricing depends on your property size and what's needed — that's why we offer free on-site estimates with no obligation. Want us to come take a look?"
-- After 1-2 exchanges with an interested customer, naturally ask: "What's the best number to reach you so we can set up your free estimate?"
-- If someone seems frustrated, lead with empathy: "I hear you — let me make sure we get that sorted out."
-- If you don't know something specific, say: "Let me have someone from our team follow up on that — can I get your number?"
- 
-YOUR MAIN GOAL:
-Help the customer feel confident about choosing Wild Roots, then get them to either:
-1. Fill out the estimate form on the page, OR
-2. Call/text us at (805) 478-2466, OR
-3. Share their phone number so our team can follow up
- 
-NEVER:
-- Promise exact prices — always say it depends on the property
-- Be pushy or repeat the same sales pitch
-- Write long walls of text — keep it conversational`
- 
+- Licensed and insured
+- ROC #357770
+- Booking link: ${CALENDLY_URL}
+
+Services:
+1. Artificial turf installation
+2. Paver patios, walkways, driveways, and courtyards
+3. Irrigation installation, repair, and water efficiency support
+4. Landscape maintenance and outdoor cleanup
+5. Planting, tree care, and seasonal refresh work
+6. Custom landscape design and small outdoor upgrades
+
+Response style:
+- Keep answers short, clear, and professional.
+- Use 2 to 4 sentences unless the visitor asks for detail.
+- Do not promise exact prices.
+- For pricing questions, explain that pricing depends on property size, materials, and scope.
+- Always offer the booking link when the visitor asks for service, price, scheduling, or next steps.
+- If the visitor asks what service they need, ask about their yard size, current issue, goal, and timeline.
+- Never mention services that are not listed above.`
+
 type Message = {
   role: 'user' | 'assistant'
   content: string
 }
- 
+
 function getSafeFallbackMessage() {
-  return 'Thanks for reaching out. Call or text us at (805) 478-2466 for a free on-site estimate, or send your details through the form and our team will follow up.'
+  return `I can help with turf, pavers, irrigation, cleanup, planting, tree care, design, and booking. You can book a consultation here: ${CALENDLY_URL}`
 }
- 
+
 function normalizeMessages(input: unknown): Message[] {
   if (!Array.isArray(input)) return []
- 
+
   return input
     .filter((item): item is Message => {
-      return !!item && typeof item === 'object' && (item as Message).role !== undefined && typeof (item as Message).content === 'string'
+      return !!item && typeof item === 'object' && typeof (item as Message).content === 'string'
     })
-    .filter((item) => item.role === 'user' || item.role === 'assistant')
     .map((item) => ({
-      role: item.role,
+      role: item.role === 'assistant' ? 'assistant' : 'user',
       content: item.content.trim(),
     }))
     .filter((item) => item.content.length > 0)
-    .slice(-20)
+    .slice(-12)
 }
- 
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json().catch(() => null)
     const messages = normalizeMessages(body?.messages)
- 
+
     if (!messages.length) {
-      return NextResponse.json({ error: 'Invalid request. Messages are required.' }, { status: 400 })
+      return NextResponse.json({ message: getSafeFallbackMessage(), fallback: true })
     }
- 
+
     const apiKey = process.env.GEMINI_API_KEY
- 
+
     if (!apiKey) {
-      console.error('Chat API error: missing GEMINI_API_KEY')
-      return NextResponse.json(
-        { message: getSafeFallbackMessage(), fallback: true },
-        { status: 200 }
-      )
+      return NextResponse.json({ message: getSafeFallbackMessage(), fallback: true })
     }
- 
-    // Gemini uses 'user' and 'model' roles (not 'assistant')
-    const geminiContents = messages.map((m) => ({
-      role: m.role === 'assistant' ? 'model' : 'user',
-      parts: [{ text: m.content }],
+
+    const geminiContents = messages.map((message) => ({
+      role: message.role === 'assistant' ? 'model' : 'user',
+      parts: [{ text: message.content }],
     }))
- 
+
     const response = await fetch(
       `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
       {
@@ -109,51 +94,30 @@ export async function POST(req: NextRequest) {
           },
           contents: geminiContents,
           generationConfig: {
-            temperature: 0.7,
-            maxOutputTokens: 300,
+            temperature: 0.5,
+            maxOutputTokens: 220,
           },
         }),
       }
     )
- 
+
     const data = await response.json()
- 
+
     if (!response.ok) {
-      console.error('Gemini API error:', data)
-      return NextResponse.json(
-        { message: getSafeFallbackMessage(), fallback: true },
-        { status: 200 }
-      )
+      return NextResponse.json({ message: getSafeFallbackMessage(), fallback: true })
     }
- 
-    const textBlocks = data.candidates?.[0]?.content?.parts
-      ?.map((p: { text?: string }) => p.text || '')
+
+    const reply = data.candidates?.[0]?.content?.parts
+      ?.map((part: { text?: string }) => part.text || '')
       .join('\n')
       .trim()
- 
-    if (!textBlocks) {
-      return NextResponse.json(
-        { message: getSafeFallbackMessage(), fallback: true },
-        { status: 200 }
-      )
-    }
- 
-    return NextResponse.json({ message: textBlocks })
-  } catch (error: unknown) {
-    const msg = error instanceof Error ? error.message : String(error)
-    console.error('Chat API error:', msg)
- 
-    return NextResponse.json(
-      {
-        message: getSafeFallbackMessage(),
-        fallback: true,
-        error: process.env.NODE_ENV === 'development' ? `AI error: ${msg}` : undefined,
-      },
-      { status: 200 }
-    )
+
+    return NextResponse.json({ message: reply || getSafeFallbackMessage() })
+  } catch {
+    return NextResponse.json({ message: getSafeFallbackMessage(), fallback: true })
   }
 }
- 
+
 export async function GET() {
   return NextResponse.json({ ok: true })
 }
