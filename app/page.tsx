@@ -163,13 +163,15 @@ export default function Home() {
         .section-label {
           font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
           color: var(--brown); font-weight: 600; margin-bottom: 10px;
+          text-align: center;
         }
         .section-title {
           font-size: clamp(1.6rem, 3vw, 2.4rem);
           font-weight: 700; color: var(--text); margin-bottom: 14px;
+          text-align: center;
         }
-        .section-sub { font-size: 16px; color: var(--text-light); max-width: 560px; }
-        .section-header { margin-bottom: 48px; }
+        .section-sub { font-size: 16px; color: var(--text-light); max-width: 560px; text-align: center; margin: 0 auto; }
+        .section-header { margin-bottom: 48px; text-align: center; }
 
         /* ── Services ── */
         .services { background: var(--beige); }
@@ -182,6 +184,7 @@ export default function Home() {
           background: white; border-radius: 12px;
           padding: 28px; border: 1px solid #e8e3db;
           transition: transform 0.2s, box-shadow 0.2s;
+          text-align: center;
         }
         .service-card:hover { transform: translateY(-4px); box-shadow: 0 12px 32px rgba(0,0,0,0.08); }
         .service-card h3 { font-size: 18px; font-weight: 700; margin-bottom: 10px; color: var(--green); }
@@ -189,7 +192,7 @@ export default function Home() {
         .service-link {
           font-size: 13px; font-weight: 600; color: var(--green);
           display: inline-flex; align-items: center; gap: 6px;
-          transition: gap 0.2s;
+          transition: gap 0.2s; justify-content: center;
         }
         .service-link:hover { gap: 10px; }
 
@@ -234,7 +237,7 @@ export default function Home() {
           background: var(--beige-dark); border-radius: 12px;
           padding: 32px 24px; position: relative; overflow: hidden;
           cursor: default; transition: transform 0.25s, box-shadow 0.25s, background 0.25s;
-          border: 1px solid #ddd5c5;
+          border: 1px solid #ddd5c5; text-align: center;
         }
         .work-tile::before {
           content: ''; position: absolute; inset: 0;
@@ -292,6 +295,7 @@ export default function Home() {
         .testi-card {
           background: white; border-radius: 12px;
           padding: 28px; border: 1px solid #e8e3db;
+          text-align: center;
         }
         .testi-quote { font-size: 36px; color: var(--green); line-height: 1; margin-bottom: 8px; }
         .testi-card p { font-size: 14px; color: var(--text-light); line-height: 1.7; font-style: italic; margin-bottom: 18px; }
@@ -305,6 +309,7 @@ export default function Home() {
           background: var(--green-light); border-left: 4px solid var(--green);
           padding: 16px 20px; border-radius: 8px; margin-bottom: 40px;
           font-size: 15px; color: var(--green-dark); font-weight: 500;
+          text-align: center;
         }
         .steps-grid {
           display: grid; grid-template-columns: repeat(3, 1fr);
@@ -484,7 +489,6 @@ export default function Home() {
               { title: 'Artificial Turf', desc: 'Professional installation that looks lush year-round. Zero watering, zero mowing, built to last. Perfect for Arizona\'s climate.' },
               { title: 'Paver Installation', desc: 'Beautiful, durable paver driveways, patios, pathways, and courtyards that add real value and curb appeal.' },
               { title: 'Irrigation Systems', desc: 'Smart irrigation design, installation, and repair. AZ Landscape Contractor\'s Association Certified Irrigation Technicians.' },
-              { title: 'Landscape Maintenance', desc: 'Ongoing maintenance to keep your outdoor space clean, healthy, and beautiful all year. Reliable, scheduled service.' },
               { title: 'Weed Management', desc: 'Effective weed control and prevention. PMD Qualified Applicators for safe, professional results.' },
               { title: 'Tree Management', desc: 'ISA Certified Arborist on staff. Expert care for trees including trimming, health assessment, and removal.' },
               { title: 'And More', desc: 'Custom landscaping solutions for any outdoor challenge. Ask us about your project and we can handle it.' },
@@ -586,7 +590,6 @@ export default function Home() {
               { title: 'Artificial Turf', sub: 'Zero water. Always green.' },
               { title: 'Paver Installation', sub: 'Driveways, patios & paths' },
               { title: 'Irrigation Systems', sub: 'Smart water management' },
-              { title: 'Landscape Maintenance', sub: 'Year-round care' },
               { title: 'Weed Management', sub: 'PMD certified applicators' },
               { title: 'Tree Management', sub: 'ISA certified arborist' },
             ].map((w) => (
@@ -823,7 +826,6 @@ export default function Home() {
                 <li><a href="#services">Artificial Turf</a></li>
                 <li><a href="#services">Paver Installation</a></li>
                 <li><a href="#services">Irrigation Systems</a></li>
-                <li><a href="#services">Landscape Maintenance</a></li>
                 <li><a href="#services">Weed Management</a></li>
               </ul>
             </div>
@@ -851,4 +853,3 @@ export default function Home() {
     </>
   );
 }
-
