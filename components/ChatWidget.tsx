@@ -1,202 +1,221 @@
-'use client'
+'use client';
+import { useState, useRef, useEffect } from 'react';
 
-import { useState, useRef, useEffect } from 'react'
-
-type Message = {
-  role: 'user' | 'assistant'
-  content: string
-}
-
-const WELCOME_MESSAGE: Message = {
-  role: 'assistant',
-  content:
-    "Hi there! I'm Horizon, the Green Horizon Landscaping assistant 🌿 I can answer questions about our services, pricing, and help you get started. What can I help you with today?",
+interface Message {
+  role: 'user' | 'assistant';
+  text: string;
 }
 
 export default function ChatWidget() {
-  const [isOpen, setIsOpen] = useState(false)
-  const [messages, setMessages] = useState<Message[]>([WELCOME_MESSAGE])
-  const [input, setInput] = useState('')
-  const [loading, setLoading] = useState(false)
-  const bottomRef = useRef<HTMLDivElement>(null)
-  const inputRef = useRef<HTMLInputElement>(null)
-
-  useEffect(() => {
-    bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
-  }, [messages, loading])
-
-  useEffect(() => {
-    if (isOpen) {
-      setTimeout(() => inputRef.current?.focus(), 100)
+  const [open, setOpen] = useState(false);
+  const [messages, setMessages] = useState<Message[]>([
+    {
+      role: 'assistant',
+      text: "Hi! I'm the Wild Roots assistant 🌿 Ask me anything about landscaping, our services, or book a free consultation!"
     }
-  }, [isOpen])
+  ]);
+  const [input, setInput] = useState('');
+  const [loading, setLoading] = useState(false);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages, loading]);
 
   const sendMessage = async () => {
-    const text = input.trim()
-    if (!text || loading) return
+    const trimmed = input.trim();
+    if (!trimmed || loading) return;
 
-    const userMessage: Message = { role: 'user', content: text }
-    const updatedMessages = [...messages, userMessage]
-    setMessages(updatedMessages)
-    setInput('')
-    setLoading(true)
+    const userMsg: Message = { role: 'user', text: trimmed };
+    setMessages(prev => [...prev, userMsg]);
+    setInput('');
+    setLoading(true);
 
     try {
       const res = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: updatedMessages }),
-      })
-      const data = await res.json()
-      setMessages([...updatedMessages, { role: 'assistant', content: data.message || data.error }])
-    } catch {
-      setMessages([
-        ...updatedMessages,
-        {
-          role: 'assistant',
-          content: "Sorry, I'm having trouble connecting. Please call us at (555) 123-4567!",
-        },
-      ])
-    } finally {
-      setLoading(false)
-    }
-  }
+        body: JSON.stringify({ message: trimmed }),
+      });
 
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault()
-      sendMessage()
+      const data = await res.json();
+      setMessages(prev => [...prev, {
+        role: 'assistant',
+        text: data.reply || 'Sorry, something went wrong. Please try again.'
+      }]);
+    } catch {
+      setMessages(prev => [...prev, {
+        role: 'assistant',
+        text: 'Connection error. Please call us at (805) 478-2466.'
+      }]);
+    } finally {
+      setLoading(false);
     }
-  }
+  };
 
   return (
     <>
-      {/* Chat window */}
-      {isOpen && (
-        <div className="fixed bottom-24 right-4 sm:right-6 z-50 w-[calc(100vw-2rem)] sm:w-96 max-h-[70vh] bg-white rounded-2xl shadow-2xl border border-gray-200 flex flex-col overflow-hidden">
-          {/* Header */}
-          <div className="bg-green-700 px-4 py-3 flex items-center justify-between flex-shrink-0">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 bg-green-500 rounded-full flex items-center justify-center text-sm font-bold text-white">
-                H
-              </div>
+      <style>{`
+        .wr-chat-widget * { box-sizing: border-box; font-family: 'Georgia', serif; }
+        .wr-chat-bubble { 
+          position: fixed; bottom: 24px; right: 24px; z-index: 9999;
+        }
+        .wr-chat-toggle {
+          width: 60px; height: 60px; border-radius: 50%;
+          background: #3a5a40; color: white; border: none;
+          font-size: 26px; cursor: pointer;
+          box-shadow: 0 4px 20px rgba(58,90,64,0.4);
+          transition: transform 0.2s, box-shadow 0.2s;
+          display: flex; align-items: center; justify-content: center;
+        }
+        .wr-chat-toggle:hover { transform: scale(1.08); box-shadow: 0 6px 24px rgba(58,90,64,0.5); }
+        .wr-chat-window {
+          position: absolute; bottom: 72px; right: 0;
+          width: 340px; background: #fff; border-radius: 16px;
+          box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+          display: flex; flex-direction: column; overflow: hidden;
+          max-height: 500px;
+          animation: wr-slide-up 0.25s ease;
+        }
+        @keyframes wr-slide-up {
+          from { opacity: 0; transform: translateY(16px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .wr-chat-header {
+          background: #3a5a40; color: white;
+          padding: 14px 16px; display: flex; justify-content: space-between; align-items: center;
+        }
+        .wr-chat-header-title { font-size: 15px; font-weight: 600; letter-spacing: 0.3px; }
+        .wr-chat-header-sub { font-size: 11px; opacity: 0.8; margin-top: 2px; }
+        .wr-chat-close {
+          background: none; border: none; color: white; font-size: 20px;
+          cursor: pointer; padding: 0; line-height: 1; opacity: 0.8;
+        }
+        .wr-chat-close:hover { opacity: 1; }
+        .wr-chat-messages {
+          flex: 1; overflow-y: auto; padding: 14px;
+          display: flex; flex-direction: column; gap: 10px;
+          background: #fafaf8;
+        }
+        .wr-msg {
+          max-width: 82%; padding: 9px 13px;
+          border-radius: 12px; font-size: 13.5px; line-height: 1.5;
+          word-break: break-word;
+        }
+        .wr-msg-user {
+          align-self: flex-end; background: #3a5a40; color: white;
+          border-bottom-right-radius: 4px;
+        }
+        .wr-msg-assistant {
+          align-self: flex-start; background: #f0ebe3; color: #2c2c2c;
+          border-bottom-left-radius: 4px;
+        }
+        .wr-typing {
+          align-self: flex-start; padding: 10px 14px;
+          background: #f0ebe3; border-radius: 12px; border-bottom-left-radius: 4px;
+          display: flex; gap: 5px; align-items: center;
+        }
+        .wr-dot {
+          width: 7px; height: 7px; border-radius: 50%;
+          background: #3a5a40; opacity: 0.5;
+          animation: wr-bounce 1.2s infinite;
+        }
+        .wr-dot:nth-child(2) { animation-delay: 0.2s; }
+        .wr-dot:nth-child(3) { animation-delay: 0.4s; }
+        @keyframes wr-bounce {
+          0%, 60%, 100% { transform: translateY(0); }
+          30% { transform: translateY(-5px); }
+        }
+        .wr-chat-input-area {
+          padding: 10px; border-top: 1px solid #e8e3db;
+          display: flex; gap: 8px; background: #fff;
+        }
+        .wr-chat-input {
+          flex: 1; padding: 9px 12px;
+          border: 1px solid #ddd; border-radius: 8px;
+          font-size: 13.5px; outline: none; font-family: inherit;
+          color: #2c2c2c; background: #fafaf8;
+          transition: border-color 0.2s;
+        }
+        .wr-chat-input:focus { border-color: #3a5a40; }
+        .wr-chat-send {
+          background: #3a5a40; color: white; border: none;
+          padding: 9px 14px; border-radius: 8px;
+          font-size: 13px; cursor: pointer; font-family: inherit;
+          transition: background 0.2s; white-space: nowrap;
+        }
+        .wr-chat-send:hover { background: #2d4731; }
+        .wr-chat-send:disabled { opacity: 0.6; cursor: not-allowed; }
+        .wr-book-link {
+          color: #3a5a40; text-decoration: underline; font-weight: 600;
+        }
+        @media (max-width: 400px) {
+          .wr-chat-window { width: calc(100vw - 32px); right: 0; }
+        }
+      `}</style>
+
+      <div className="wr-chat-bubble">
+        {open && (
+          <div className="wr-chat-window">
+            <div className="wr-chat-header">
               <div>
-                <div className="text-white font-semibold text-sm">Horizon</div>
-                <div className="text-green-200 text-xs flex items-center gap-1">
-                  <span className="w-1.5 h-1.5 bg-green-300 rounded-full animate-pulse" />
-                  AI Landscaping Assistant
-                </div>
+                <div className="wr-chat-header-title">🌿 Wild Roots Assistant</div>
+                <div className="wr-chat-header-sub">Ask about services or book a consultation</div>
               </div>
+              <button className="wr-chat-close" onClick={() => setOpen(false)}>×</button>
             </div>
-            <button
-              onClick={() => setIsOpen(false)}
-              className="text-green-200 hover:text-white transition-colors p-1"
-              aria-label="Close chat"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-          </div>
 
-          {/* Messages */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-3 chat-messages min-h-0">
-            {messages.map((msg, i) => (
-              <div key={i} className={`flex ${msg.role === 'user' ? 'justify-end' : 'justify-start'}`}>
+            <div className="wr-chat-messages">
+              {messages.map((m, i) => (
                 <div
-                  className={`max-w-[85%] rounded-2xl px-4 py-2.5 text-sm leading-relaxed ${
-                    msg.role === 'user'
-                      ? 'bg-green-600 text-white rounded-br-sm'
-                      : 'bg-gray-100 text-gray-800 rounded-bl-sm'
-                  }`}
-                >
-                  {msg.content}
+                  key={i}
+                  className={`wr-msg ${m.role === 'user' ? 'wr-msg-user' : 'wr-msg-assistant'}`}
+                  dangerouslySetInnerHTML={{
+                    __html: m.text.replace(
+                      'https://calendly.com/wild-roots-custom/30min',
+                      '<a href="https://calendly.com/wild-roots-custom/30min" target="_blank" class="wr-book-link">Book here</a>'
+                    )
+                  }}
+                />
+              ))}
+              {loading && (
+                <div className="wr-typing">
+                  <div className="wr-dot" />
+                  <div className="wr-dot" />
+                  <div className="wr-dot" />
                 </div>
-              </div>
-            ))}
-
-            {/* Typing indicator */}
-            {loading && (
-              <div className="flex justify-start">
-                <div className="bg-gray-100 rounded-2xl rounded-bl-sm px-4 py-3">
-                  <div className="flex gap-1 items-center">
-                    <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0ms' }} />
-                    <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '150ms' }} />
-                    <span className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '300ms' }} />
-                  </div>
-                </div>
-              </div>
-            )}
-            <div ref={bottomRef} />
-          </div>
-
-          {/* Quick prompts (shown when only welcome message) */}
-          {messages.length === 1 && (
-            <div className="px-4 pb-2 flex flex-wrap gap-2 flex-shrink-0">
-              {['What services do you offer?', 'How much does lawn mowing cost?', 'Can I get a free quote?'].map(
-                (prompt) => (
-                  <button
-                    key={prompt}
-                    onClick={() => {
-                      setInput(prompt)
-                      setTimeout(() => sendMessage(), 50)
-                    }}
-                    className="text-xs bg-green-50 border border-green-200 text-green-700 rounded-full px-3 py-1.5 hover:bg-green-100 transition-colors"
-                  >
-                    {prompt}
-                  </button>
-                )
               )}
+              <div ref={messagesEndRef} />
             </div>
-          )}
 
-          {/* Input */}
-          <div className="border-t border-gray-100 px-3 py-3 flex gap-2 flex-shrink-0">
-            <input
-              ref={inputRef}
-              type="text"
-              value={input}
-              onChange={(e) => setInput(e.target.value)}
-              onKeyDown={handleKeyDown}
-              placeholder="Ask about our services..."
-              className="flex-1 text-sm border border-gray-200 rounded-xl px-3 py-2 focus:outline-none focus:ring-2 focus:ring-green-400 focus:border-transparent"
-            />
-            <button
-              onClick={sendMessage}
-              disabled={loading || !input.trim()}
-              className="bg-green-600 hover:bg-green-700 disabled:bg-gray-200 text-white rounded-xl p-2 transition-colors"
-              aria-label="Send message"
-            >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
-              </svg>
-            </button>
+            <div className="wr-chat-input-area">
+              <input
+                className="wr-chat-input"
+                value={input}
+                onChange={e => setInput(e.target.value)}
+                onKeyDown={e => e.key === 'Enter' && sendMessage()}
+                placeholder="Ask a question..."
+                disabled={loading}
+              />
+              <button
+                className="wr-chat-send"
+                onClick={sendMessage}
+                disabled={loading || !input.trim()}
+              >
+                Send
+              </button>
+            </div>
           </div>
-        </div>
-      )}
-
-      {/* Toggle button */}
-      <button
-        id="chat-toggle-btn"
-        onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-6 right-4 sm:right-6 z-50 w-14 h-14 bg-green-600 hover:bg-green-700 text-white rounded-full shadow-lg flex items-center justify-center transition-all duration-200 hover:scale-110"
-        aria-label="Open chat"
-      >
-        {isOpen ? (
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        ) : (
-          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
-          </svg>
         )}
 
-        {/* Notification dot */}
-        {!isOpen && (
-          <span className="absolute -top-1 -right-1 w-4 h-4 bg-yellow-400 rounded-full border-2 border-white animate-pulse" />
-        )}
-      </button>
+        <button
+          className="wr-chat-toggle"
+          onClick={() => setOpen(prev => !prev)}
+          aria-label="Open chat assistant"
+        >
+          {open ? '×' : '💬'}
+        </button>
+      </div>
     </>
-  )
+  );
 }
