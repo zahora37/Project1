@@ -454,7 +454,7 @@ export default function Home() {
           <div className="hero-badge">Arizona Licensed & Insured · ROC #357770</div>
           <h1>Wild Roots<br /><span>Custom Landscaping</span></h1>
           <p className="hero-sub">
-            Transform Your Outdoor Space Today. Artificial turf, pavers, irrigation, weed management and more — by Arizona-certified professionals.
+            Transform Your Outdoor Space Today. Artificial turf, pavers, irrigation, Landscape Maintenance and more — by Arizona-certified professionals.
           </p>
           <div className="hero-ctas">
             <a
