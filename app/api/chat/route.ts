@@ -54,11 +54,14 @@ function normalizeMessages(input: unknown): Message[] {
   return input
     .filter((item): item is Message => {
       return !!item && typeof item === 'object' && typeof (item as Message).content === 'string'
-    })
-    .map((item) => ({
-      role: item.role === 'assistant' ? 'assistant' : 'user',
-      content: item.content.trim(),
-    }))
+   .map((item) => {
+  const role: Message['role'] = item.role === 'assistant' ? 'assistant' : 'user'
+
+  return {
+    role,
+    content: item.content.trim(),
+  }
+})
     .filter((item) => item.content.length > 0)
     .slice(-12)
 }
