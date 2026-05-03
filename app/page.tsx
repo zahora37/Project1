@@ -538,7 +538,7 @@ export default function Home() {
               <p className="section-label">About Us</p>
               <h2 className="section-title">Arizona-Certified Landscaping Professionals</h2>
               <p style={{ color: 'var(--text-light)', fontSize: '15px', lineHeight: '1.7', marginBottom: '20px' }}>
-                Wild Roots Custom Landscaping, LLC is a fully licensed and insured landscaping company serving the local Arizona community. We specialize in artificial turf, paver installation, irrigation systems, weed management, and full landscape maintenance.
+                Wild Roots Custom Landscaping, LLC is a fully licensed and insured landscaping company serving the local Arizona community. We specialize in artificial turf, paver installation, irrigation systems, and full landscape maintenance.
               </p>
               <p style={{ color: 'var(--text-light)', fontSize: '15px', lineHeight: '1.7' }}>
                 Our team holds some of the highest certifications in the industry. When we work on your property, you know it&apos;s done right.
@@ -790,7 +790,7 @@ export default function Home() {
                 </div>
               </div>
               <p className="footer-desc">
-                Arizona&apos;s trusted landscaping professionals. Artificial turf, pavers, irrigation, weed management &amp; more. Licensed, insured, and certified.
+                Arizona&apos;s trusted landscaping professionals. Artificial turf, pavers, irrigation &amp; more. Licensed, insured, and certified.
               </p>
               <div className="footer-contact">
                 <a href="tel:8054782466" style={{ display: 'block', marginBottom: '6px' }}>(805) 478-2466</a>
