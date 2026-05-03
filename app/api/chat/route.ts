@@ -3,122 +3,75 @@ import { NextRequest, NextResponse } from 'next/server'
 export const runtime = 'nodejs'
 export const dynamic = 'force-dynamic'
 
-const CALENDLY_URL = 'https://calendly.com/wild-roots-custom/30min'
-
-const SYSTEM_PROMPT = `You are Roots, the AI assistant for Wild Roots Custom Landscaping, LLC in Arizona.
-
-Your job is to:
-- Answer questions about landscaping services.
-- Give simple general advice for outdoor projects.
-- Help visitors understand what service they may need.
-- Guide visitors to book a consultation.
-- Help collect leads by asking for a name, phone number, city, and project details when the visitor seems interested.
-
-Company details:
-- Wild Roots Custom Landscaping, LLC
-- Phone: (805) 478-2466
-- Email: wild.roots.llc24@gmail.com
-- Licensed and insured
-- ROC #357770
-- Booking link: ${CALENDLY_URL}
-
-Services:
-1. Artificial turf installation
-2. Paver patios, walkways, driveways, and courtyards
-3. Irrigation installation, repair, and water efficiency support
-4. Landscape maintenance and outdoor cleanup
-5. Planting, tree care, and seasonal refresh work
-6. Custom landscape design and small outdoor upgrades
-
-Response style:
-- Keep answers short, clear, and professional.
-- Use 2 to 4 sentences unless the visitor asks for detail.
-- Do not promise exact prices.
-- For pricing questions, explain that pricing depends on property size, materials, and scope.
-- Always offer the booking link when the visitor asks for service, price, scheduling, or next steps.
-- If the visitor asks what service they need, ask about their yard size, current issue, goal, and timeline.
-- Never mention services that are not listed above.`
+const BOOKING_LINK = 'https://calendly.com/wild-roots-custom/30min'
 
 type Message = {
   role: 'user' | 'assistant'
   content: string
 }
 
-function getSafeFallbackMessage() {
-  return `I can help with turf, pavers, irrigation, cleanup, planting, tree care, design, and booking. You can book a consultation here: ${CALENDLY_URL}`
-}
-
 function normalizeMessages(input: unknown): Message[] {
   if (!Array.isArray(input)) return []
 
   return input
-    .filter((item): item is Message => {
-      return !!item && typeof item === 'object' && typeof (item as Message).content === 'string'
-   .map((item) => {
-  const role: Message['role'] = item.role === 'assistant' ? 'assistant' : 'user'
+    .filter((item) => {
+      return !!item && typeof item === 'object' && typeof (item as { content?: unknown }).content === 'string'
+    })
+    .map((item) => {
+      const source = item as { role?: unknown; content: string }
+      const role: Message['role'] = source.role === 'assistant' ? 'assistant' : 'user'
 
-  return {
-    role,
-    content: item.content.trim(),
-  }
-})
+      return {
+        role,
+        content: source.content.trim(),
+      }
+    })
     .filter((item) => item.content.length > 0)
     .slice(-12)
 }
 
-export async function POST(req: NextRequest) {
-  try {
-    const body = await req.json().catch(() => null)
-    const messages = normalizeMessages(body?.messages)
+function getLastUserMessage(messages: Message[]) {
+  return [...messages].reverse().find((message) => message.role === 'user')?.content.toLowerCase() || ''
+}
 
-    if (!messages.length) {
-      return NextResponse.json({ message: getSafeFallbackMessage(), fallback: true })
-    }
-
-    const apiKey = process.env.GEMINI_API_KEY
-
-    if (!apiKey) {
-      return NextResponse.json({ message: getSafeFallbackMessage(), fallback: true })
-    }
-
-    const geminiContents = messages.map((message) => ({
-      role: message.role === 'assistant' ? 'model' : 'user',
-      parts: [{ text: message.content }],
-    }))
-
-    const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`,
-      {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          system_instruction: {
-            parts: [{ text: SYSTEM_PROMPT }],
-          },
-          contents: geminiContents,
-          generationConfig: {
-            temperature: 0.5,
-            maxOutputTokens: 220,
-          },
-        }),
-      }
-    )
-
-    const data = await response.json()
-
-    if (!response.ok) {
-      return NextResponse.json({ message: getSafeFallbackMessage(), fallback: true })
-    }
-
-    const reply = data.candidates?.[0]?.content?.parts
-      ?.map((part: { text?: string }) => part.text || '')
-      .join('\n')
-      .trim()
-
-    return NextResponse.json({ message: reply || getSafeFallbackMessage() })
-  } catch {
-    return NextResponse.json({ message: getSafeFallbackMessage(), fallback: true })
+function buildReply(text: string) {
+  if (text.includes('price') || text.includes('cost') || text.includes('estimate') || text.includes('quote') || text.includes('how much')) {
+    return `Please book a consultation so the Wild Roots team can review your project details. Booking link: ${BOOKING_LINK}`
   }
+
+  if (text.includes('book') || text.includes('schedule') || text.includes('appointment') || text.includes('consultation')) {
+    return `You can book a Wild Roots consultation here: ${BOOKING_LINK}. Please include your name, phone number, city, and a short description of your outdoor project.`
+  }
+
+  if (text.includes('turf') || text.includes('grass')) {
+    return 'Artificial turf is a low-maintenance option for outdoor areas. Wild Roots can help with turf areas, layout planning, and clean installation guidance. To move forward, please share your city, yard size, and project goal.'
+  }
+
+  if (text.includes('paver') || text.includes('patio') || text.includes('driveway') || text.includes('walkway')) {
+    return 'Pavers work well for patios, walkways, driveways, and courtyard areas. Wild Roots can help review layout, access, drainage, and design needs. Please share your city, project area, and preferred timeline.'
+  }
+
+  if (text.includes('irrigation') || text.includes('water') || text.includes('drip') || text.includes('sprinkler')) {
+    return 'Irrigation support can include installation, repair, water efficiency, and system checks. Wild Roots can help review plant needs, coverage, and controller setup. Please share your city and what issue you are noticing.'
+  }
+
+  if (text.includes('plant') || text.includes('tree') || text.includes('cleanup') || text.includes('yard')) {
+    return 'Wild Roots can help with planting, tree care, cleanup, and seasonal refresh work. A good next step is to describe what you want changed, what is currently in the yard, and your city.'
+  }
+
+  if (text.includes('service') || text.includes('offer') || text.includes('do you do')) {
+    return `Wild Roots services include artificial turf, pavers, irrigation, landscape maintenance, planting, tree care, cleanup, and custom landscape design. To choose the best service, share your city, project goal, and what you want improved.`
+  }
+
+  return `I can help with turf, pavers, irrigation, landscape maintenance, planting, tree care, cleanup, custom design, and booking. Tell me what you want to improve, your city, and your project timeline. Booking link: ${BOOKING_LINK}`
+}
+
+export async function POST(req: NextRequest) {
+  const body = await req.json().catch(() => null)
+  const messages = normalizeMessages(body?.messages)
+  const lastUserMessage = getLastUserMessage(messages)
+
+  return NextResponse.json({ message: buildReply(lastUserMessage) })
 }
 
 export async function GET() {
