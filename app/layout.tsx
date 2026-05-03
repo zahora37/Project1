@@ -1,30 +1,40 @@
-import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
-import './globals.css'
-
-const inter = Inter({ subsets: ['latin'] })
+import type { Metadata } from 'next';
+import './globals.css';
 
 export const metadata: Metadata = {
   title: 'Wild Roots Custom Landscaping | Arizona Landscaping Experts',
-  description:
-    'Wild Roots Custom Landscaping, LLC — Arizona\'s trusted landscaping company. Artificial turf, pavers, irrigation, weed management & more. Licensed & Insured. ROC #357770. Call (805) 478-2466.',
-  keywords:
-    'landscaping arizona, artificial turf, paver installation, irrigation systems, weed management, landscape maintenance, ROC 357770, wild roots landscaping',
+  description: 'Arizona-licensed landscaping professionals. Artificial turf, pavers, irrigation, weed management & more. Licensed, insured, and certified. ROC #357770.',
+  icons: {
+    icon: [
+      { url: '/logo.png', type: 'image/png' },
+    ],
+    apple: '/logo.png',
+    shortcut: '/logo.png',
+  },
   openGraph: {
-    title: 'Wild Roots Custom Landscaping, LLC',
-    description: 'Transform your outdoor space today. Arizona\'s certified landscaping experts. Free estimates.',
+    title: 'Wild Roots Custom Landscaping',
+    description: 'Arizona-certified landscaping experts. Artificial turf, pavers, irrigation & more. Free estimates. ROC #357770.',
+    url: 'https://wildrootscustom.com',
+    siteName: 'Wild Roots Custom Landscaping',
+    images: [{ url: '/logo.png' }],
+    locale: 'en_US',
     type: 'website',
   },
-}
+};
 
 export default function RootLayout({
   children,
 }: {
-  children: React.ReactNode
+  children: React.ReactNode;
 }) {
   return (
     <html lang="en">
-      <body className={inter.className} suppressHydrationWarning>{children}</body>
+      <head>
+        <link rel="icon" href="/logo.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/logo.png" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </head>
+      <body>{children}</body>
     </html>
-  )
+  );
 }
