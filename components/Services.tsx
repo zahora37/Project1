@@ -7,7 +7,7 @@ const services = [
     ),
     title: 'Artificial Turf',
     description:
-      'Professional artificial turf installation that looks lush year-round. Zero watering, zero mowing, and built to last. Perfect for Arizona\'s climate.',
+      'Professional artificial turf installation that looks lush year-round. Zero watering, zero mowing, and built to last. Perfect for Arizona climate.',
     price: 'Free estimate',
   },
   {
@@ -24,46 +24,34 @@ const services = [
   {
     icon: (
       <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z" />
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l2 2" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 3v1m0 16v1m9-9h-1M4 12H3" />
       </svg>
     ),
     title: 'Irrigation Systems',
     description:
-      'Smart irrigation design, installation, and repair. We are Arizona Landscape Contractor\'s Association Certified Irrigation Technicians.',
+      'Smart irrigation design, installation, and repair for efficient water use and long term performance.',
     price: 'Free estimate',
   },
   {
     icon: (
       <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14.121 14.121L19 19m-7-7l7-7m-7 7l-2.879 2.879M12 12L9.121 9.121m0 5.758a3 3 0 10-4.243 4.243 3 3 0 004.243-4.243zm0-5.758a3 3 0 10-4.243-4.243 3 3 0 004.243 4.243z" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M14.121 14.121L19 19" />
       </svg>
     ),
     title: 'Landscape Maintenance',
     description:
-      'Ongoing maintenance to keep your outdoor space clean, healthy, and beautiful all year. Reliable, scheduled service you can count on.',
+      'Ongoing maintenance to keep your outdoor space clean, healthy, and visually strong all year.',
     price: 'Free estimate',
   },
   {
     icon: (
       <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4" />
       </svg>
     ),
-    title: 'Weed Management',
+    title: 'And More',
     description:
-      'Effective weed control and prevention treatments tailored to Arizona landscapes. We\'re PMD Qualified Applicators for safe, professional results.',
-    price: 'Free estimate',
-  },
-  {
-    icon: (
-      <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4" />
-      </svg>
-    ),
-    title: 'Custom Projects',
-    description:
-      'Custom landscaping solutions for any outdoor challenge. ISA Certified Arborist on staff. Ask us about your project and we can handle it.',
+      'Additional outdoor services including cleanup, planting, and custom landscape solutions based on your needs.',
     price: 'Free estimate',
   },
 ]
@@ -74,7 +62,7 @@ export default function Services() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="section-title">Our Services</h2>
         <p className="section-subtitle">
-          From artificial turf to full landscape transformations. Certified Arizona professionals you can trust.
+          From turf to full landscape upgrades. Clean, simple, professional results.
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -98,7 +86,7 @@ export default function Services() {
         </div>
 
         <div className="text-center mt-12">
-          <p className="text-gray-500 mb-4">Not sure what you need? Our AI assistant can help, or request a free on-site estimate.</p>
+          <p className="text-gray-500 mb-4">Need help choosing a service. Ask the assistant or request a consultation.</p>
           <a href="#contact" className="btn-primary">
             Get a Free Estimate
           </a>
