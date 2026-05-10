@@ -811,7 +811,7 @@ export default function Home() {
               </a>
               <br />
               <a
-                href="https://wildrootscustom.com/YOUR_GOOGLE_REVIEWS_LINK"
+                href="href="https://www.google.com/maps/search/Wild+Roots+Custom+Landscaping+LLC+Arizona""
                 target="_blank"
                 rel="noopener noreferrer"
                 className="footer-review"
